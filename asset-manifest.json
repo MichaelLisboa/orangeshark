@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "./static/css/main.802c79dd.chunk.css",
-    "main.js": "./static/js/main.399fd5c4.chunk.js",
-    "main.js.map": "./static/js/main.399fd5c4.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.f3c2cd1c.js",
-    "runtime-main.js.map": "./static/js/runtime-main.f3c2cd1c.js.map",
-    "static/css/2.30861e7f.chunk.css": "./static/css/2.30861e7f.chunk.css",
-    "static/js/2.d0d3be27.chunk.js": "./static/js/2.d0d3be27.chunk.js",
-    "static/js/2.d0d3be27.chunk.js.map": "./static/js/2.d0d3be27.chunk.js.map",
-    "index.html": "./index.html",
-    "precache-manifest.d0106d197ff18337600c3983c4e0540c.js": "./precache-manifest.d0106d197ff18337600c3983c4e0540c.js",
-    "service-worker.js": "./service-worker.js",
-    "static/css/2.30861e7f.chunk.css.map": "./static/css/2.30861e7f.chunk.css.map",
-    "static/css/main.802c79dd.chunk.css.map": "./static/css/main.802c79dd.chunk.css.map",
-    "static/js/2.d0d3be27.chunk.js.LICENSE": "./static/js/2.d0d3be27.chunk.js.LICENSE",
-    "static/media/logo-strap.png": "./static/media/logo-strap.d5add290.png",
-    "static/media/logo.png": "./static/media/logo.6ddc3dcb.png",
-    "static/media/michael-d.png": "./static/media/michael-d.a25f5cb3.png"
+    "main.css": "/orangeshark/static/css/main.802c79dd.chunk.css",
+    "main.js": "/orangeshark/static/js/main.d5b25cc4.chunk.js",
+    "main.js.map": "/orangeshark/static/js/main.d5b25cc4.chunk.js.map",
+    "runtime-main.js": "/orangeshark/static/js/runtime-main.008b4b6d.js",
+    "runtime-main.js.map": "/orangeshark/static/js/runtime-main.008b4b6d.js.map",
+    "static/css/2.30861e7f.chunk.css": "/orangeshark/static/css/2.30861e7f.chunk.css",
+    "static/js/2.d0d3be27.chunk.js": "/orangeshark/static/js/2.d0d3be27.chunk.js",
+    "static/js/2.d0d3be27.chunk.js.map": "/orangeshark/static/js/2.d0d3be27.chunk.js.map",
+    "index.html": "/orangeshark/index.html",
+    "precache-manifest.aad14ff5f1e202485eda5bf8e3dc90b2.js": "/orangeshark/precache-manifest.aad14ff5f1e202485eda5bf8e3dc90b2.js",
+    "service-worker.js": "/orangeshark/service-worker.js",
+    "static/css/2.30861e7f.chunk.css.map": "/orangeshark/static/css/2.30861e7f.chunk.css.map",
+    "static/css/main.802c79dd.chunk.css.map": "/orangeshark/static/css/main.802c79dd.chunk.css.map",
+    "static/js/2.d0d3be27.chunk.js.LICENSE": "/orangeshark/static/js/2.d0d3be27.chunk.js.LICENSE",
+    "static/media/logo-strap.png": "/orangeshark/static/media/logo-strap.d5add290.png",
+    "static/media/logo.png": "/orangeshark/static/media/logo.6ddc3dcb.png",
+    "static/media/michael-d.png": "/orangeshark/static/media/michael-d.a25f5cb3.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.f3c2cd1c.js",
+    "static/js/runtime-main.008b4b6d.js",
     "static/css/2.30861e7f.chunk.css",
     "static/js/2.d0d3be27.chunk.js",
     "static/css/main.802c79dd.chunk.css",
-    "static/js/main.399fd5c4.chunk.js"
+    "static/js/main.d5b25cc4.chunk.js"
   ]
 }
