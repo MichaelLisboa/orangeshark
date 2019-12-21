@@ -1,0 +1,33 @@
+.uk-card {
+  border-radius: 4px;
+}
+
+.uk-card + .uk-card {
+  margin-top: 20px;
+}
+
+.uk-card.highlight {
+  border-top: #bfabf5 4px solid;
+}
+
+.uk-card-media-top {
+  border-radius: 4px 4px 0 0 !important;
+}
+
+.uk-card-header {
+  padding-top: 16px !important;
+  padding-bottom: 24px !important;
+  border-style: none !important;
+}
+
+.with-tabs .uk-card {
+  background-color: rgba(255, 255, 255, 1) !important;
+}
+
+.uk-card small {
+  font-size: 10px !important;
+}
+
+h3.uk-card-title {
+  font-weight: 400 !important;
+}

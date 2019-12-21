@@ -1,0 +1,48 @@
+.project-status input[type=radio] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+.project-status input[type=radio] + img {
+  cursor: pointer;
+  -webkit-filter: grayscale(100%) opacity(30%);
+  transition: filter 0.75s;
+}
+
+/* CHECKED STYLES */
+.project-status input[type=radio]:checked + img {
+  -webkit-filter: grayscale(0%) opacity(100%);
+}
+
+.project-detail-card {
+  margin-bottom: 64px;
+}
+
+.match-rating {
+  text-align: center;
+}
+
+.match-rating p {
+  display: block;
+  padding: 0 !important;
+  margin: 0 0 4px;
+  font-size: 10px;
+}
+
+.match-rating img {
+  margin: auto 2px !important;
+  height: 16px;
+  min-width: 16px !important;
+}
+
+.project-info {
+  max-width: 400px;
+  margin: 16px auto;
+}
+
+.project-info img {
+  max-width: 12px;
+}

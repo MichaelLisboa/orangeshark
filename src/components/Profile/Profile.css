@@ -1,0 +1,126 @@
+.profile-card-container {
+  max-width: 350px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.skill-set span {
+  white-space: nowrap;
+  display: inline-block;
+  margin-right: 4px;
+  padding: 2px 8px;
+  background-color: #f0f0f0;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+}
+
+.profile-info-container {
+  padding-bottom: 40px;
+  /* margin-bottom: 72px; */
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px 4px 0 0;
+  align-self: flex-end;
+  /* align-items: stretch; */
+  background-color: #fff;
+}
+
+.profile-card .uk-card-body {
+  height: 60%;
+  padding-bottom: 72px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.profile-card .uk-card-body h4 {
+  margin: 16px 0 0 !important;
+  font-size: 1.125em;
+}
+
+.profile-card-header {
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow: hidden;
+}
+
+.profile-card .profile-card-header h4 {
+  color: rgb(25, 25, 25);
+  padding: 0;
+  margin: 0;
+  line-height: normal;
+}
+
+.profile-card .profile-card-header p {
+  color: rgb(150, 150, 150);
+  padding: 0 0 8px;
+  margin: 0;
+  font-size: 0.85em;
+  line-height: normal;
+  overflow: hidden;
+}
+
+.profile-card .uk-card-body div > p:first-of-type {
+  margin-top: 0;
+}
+
+img.profile-image-circle {
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 4px;
+  border-color: rgb(255, 255, 255);
+  height: 100%;
+  width: auto;
+  max-height: 150px !important;
+  max-width: 150px !important;
+  overflow: hidden;
+}
+
+img.profile-image-offset {
+  position: relative !important;
+  margin-top: -64px !important;
+  margin-bottom: 40px;
+  align-self: center;
+}
+
+img.avatar-img {
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.profile-edit-container li a {
+  font-size: 1.125em;
+}
+
+.profile-edit-container li.uk-open a {
+  display: none;
+}
+
+.uk-accordion-title::before {
+  background-image: none;
+}
+
+.profile-edit-container .uk-icon-button,
+.uk-accordion-content .uk-icon-button {
+  display: inline-flex;
+  margin-right: 8px;
+  background-color: rgb(235, 222, 255);
+  color: rgb(126, 87, 194);
+}
+
+.uk-accordion-content .uk-card-header {
+  font-size: 1.125em;
+  color: #333;
+}
+
+.profile-edit-container .logout-button {
+  text-transform: capitalize;
+}
