@@ -6,6 +6,7 @@
 		"type": "git",
 		"url": "https://github.com/MichaelLisboa/orangeshark.git"
 	},
+	"homepage": "https://michaellisboa.github.io/orangeshark/",
 	"engines": {
 		"node": ">=8.0.0"
 	},

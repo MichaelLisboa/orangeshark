@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AppRoutes from "./AppRoutes";
 import Navigation from "../Nav";
 import Footer from "../Footer";
@@ -11,6 +11,16 @@ import "./App.css";
 import "../UiKit/Uikit.css";
 
 export default function App() {
+    const [state, setState] = useState({});
+
+    useEffect(
+        () => {
+            fetch('/');
+            console.log("THE STATE", state)
+        }, [state]
+    )
+
+
     return (
         <>
         <Navigation />

@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import ProtectedRoute from "../../lib/ProtectedRoute";
 // import withTracker from "../../lib/withTracker";
+import ScrollToTopRoute from "../../lib/ScrollToTopRoute";
 
 import Signup from "../Auth/Signup";
 import SignupDone from "../Auth/SignupDone";
@@ -28,14 +29,14 @@ import Stage from "../Stage";
 const AppRoutes = props => {
     return (
         <Switch>
-            <Route path="/signup" component={(Signup)} />
-            <Route path="/signup-done" component={(SignupDone)} />
-            <Route exact path="/account/confirm-email/:key" component={AccountActivation}/>
-            <Route exact path="/reset/:uid/:token" component={PasswordResetConfirm}/>
-            <Route path="/reset-password" component={PasswordReset}/>
-            <Route path="/reset-password-done" component={PasswordResetDone}/>
-            <Route path="/login" component={(Login)} />
-            <Route path="/logout" component={(Logout)} />
+            <ScrollToTopRoute path="/signup" component={(Signup)} />
+            <ScrollToTopRoute path="/signup-done" component={(SignupDone)} />
+            <ScrollToTopRoute exact path="/account/confirm-email/:key" component={AccountActivation}/>
+            <ScrollToTopRoute exact path="/reset/:uid/:token" component={PasswordResetConfirm}/>
+            <ScrollToTopRoute path="/reset-password" component={PasswordReset}/>
+            <ScrollToTopRoute path="/reset-password-done" component={PasswordResetDone}/>
+            <ScrollToTopRoute path="/login" component={(Login)} />
+            <ScrollToTopRoute path="/logout" component={(Logout)} />
             <ProtectedRoute path="/profile/edit/:id" component={(EditProfile)} />
             <ProtectedRoute path="/profile" component={(Profile)} />
             <ProtectedRoute path="/campaigns" component={(Campaigns)} />
@@ -44,7 +45,7 @@ const AppRoutes = props => {
             <ProtectedRoute path="/user/:id" component={(ViewUser)} />
             <ProtectedRoute path="/design" component={Stage} />
 
-            <Route path="/" component={(Home)} />
+            <ScrollToTopRoute path="/" component={(Home)} />
         </Switch>
     )
 }
