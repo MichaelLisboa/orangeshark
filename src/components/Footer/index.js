@@ -4,7 +4,7 @@ import logo from  "../../images/logo-strap.png";
 
 const Footer = props =>
     <footer id="page-footer"
-        className={`${props.className} uk-container uk-container-expand uk-padding-small uk-section-secondary`}>
+        className={`${props.className} uk-container uk-container-expand uk-section-secondary`}>
         <div className="uk-padding-small" data-uk-grid >
             <div className="uk-width-1-2">
                 <img

@@ -31,7 +31,7 @@
 		"react-stripe-elements": "^5.1.0",
 		"react-toast-notifications": "^2.4.0",
 		"recompose": "^0.30.0",
-		"uikit": "^3.2.4",
+		"uikit": "^3.2.6",
 		"yes-https": "^1.0.0",
 		"yup": "^0.27.0"
 	},

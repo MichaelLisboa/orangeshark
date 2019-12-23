@@ -74,7 +74,7 @@ const Login = props =>  {
             }}
             validationSchema={getSchema}
             render={formikProps =>
-                <section className="uk-flex uk-flex-middle" data-uk-height-viewport="offset-top: true">
+                <section className="uk-section uk-section-small uk-flex uk-flex-middle" data-uk-height-viewport="offset-bottom: 20;">
                     <div className="uk-container uk-container-small">
                         <div data-uk-scrollspy="cls: uk-animation-fade">
                             <p className="uk-h1">Hi there. <br />Welcome back.</p>

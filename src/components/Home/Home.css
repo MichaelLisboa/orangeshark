@@ -1,0 +1,8 @@
+.wrap::before {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  content: '';
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}

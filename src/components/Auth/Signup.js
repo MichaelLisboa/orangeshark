@@ -79,7 +79,7 @@ const Signup = props =>  {
             }}
             validationSchema={getSchema}
             render={formikProps =>
-                <section className="uk-width-1-1 uk-flex uk-flex-column uk-flex-around" data-uk-height-viewport="offset-top: true">
+                <section className="uk-section uk-section-small uk-width-1-1 uk-flex uk-flex-column uk-flex-around" data-uk-height-viewport="offset-bottom: 20;">
                     <div className="uk-container uk-container-small">
                         <div data-uk-scrollspy="cls: uk-animation-fade">
                             <p className="uk-h1">Sign up</p>

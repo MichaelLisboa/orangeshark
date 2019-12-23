@@ -4,6 +4,8 @@ import ProtectedRoute from "../../lib/ProtectedRoute";
 // import withTracker from "../../lib/withTracker";
 import ScrollToTopRoute from "../../lib/ScrollToTopRoute";
 
+import Footer from "../Footer";
+
 import Signup from "../Auth/Signup";
 import SignupDone from "../Auth/SignupDone";
 import AccountActivation from "../Auth/AccountActivation";
@@ -28,6 +30,7 @@ import Stage from "../Stage";
 
 const AppRoutes = props => {
     return (
+        <main data-uk-height-viewport="offset-top: true">
         <Switch>
             <ScrollToTopRoute path="/signup" component={(Signup)} />
             <ScrollToTopRoute path="/signup-done" component={(SignupDone)} />
@@ -47,6 +50,8 @@ const AppRoutes = props => {
 
             <ScrollToTopRoute path="/" component={(Home)} />
         </Switch>
+        <Footer />
+        </main>
     )
 }
 
