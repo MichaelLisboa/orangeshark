@@ -310,16 +310,16 @@ form.default-form textarea {
   color: rgb(125, 125, 125);
   font-weight: 300;
   border-style: solid;
-  border-color: transparent;
-  border-width: 1px;
-  border-radius: 4px;
-  background-color: #f8f8f8;
+  border-width: 0 0 1px;
+  border-radius: 0;
+  background-color: transparent !important;
+  padding: 0 !important;
 }
 
 form.default-form input:focus,
 form.default-form textarea:focus {
   color: rgba(75, 75, 75);
-  border-color: #e0e0e0;
+  /* border-color: #e0e0e0; */
 }
 
 /* SELECTS */
@@ -348,21 +348,21 @@ form.default-form select:disabled {
 
 form.default-form input::-webkit-input-placeholder,
 form.default-form textarea::-webkit-input-placeholder { /* Edge */
-  color: rgb(200, 200, 200) !important;
+  color: rgba(200, 200, 200) !important;
   font-size: 1em;
   font-weight: 200;
 }
 
 form.default-form input:-ms-input-placeholder,
 form.default-form textarea:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: rgb(200, 200, 200) !important;
+  color: rgba(200, 200, 200) !important;
   font-size: 1em;
   font-weight: 200;
 }
 
 form.default-form input::placeholder,
 form.default-form textarea::placeholder {
-  color: rgb(200, 200, 200) !important;
+  color: rgba(200, 200, 200) !important;
   font-size: 1em;
   font-weight: 200;
 }
@@ -393,4 +393,9 @@ form.default-form textarea::-webkit-input-placeholder {
   font-size: 1.5rem;
   font-weight: 200;
   padding: 8px !important;
+}
+
+.default-form .uk-card-header,
+.default-form .uk-card-footer {
+  border-style: none;
 }

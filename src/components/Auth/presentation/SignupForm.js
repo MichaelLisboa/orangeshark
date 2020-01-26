@@ -9,31 +9,16 @@ const SignupForm = ({serverError, ...props}) => {
             className="default-form"
             >
                 <div className="uk-grid-small uk-padding-remove" data-uk-grid>
-                    <label className="uk-width-1-2">
+                    <label className="uk-width-1-1">
                         <small className="uk-display-inline">
-                            First name <span className={`${props.errors.first_name && props.touched.first_name && "uk-text-danger"}`}>
-                                {props.errors.first_name && props.touched.first_name && props.errors.first_name}
+                            Username <span className={`${props.errors.username && props.touched.username && "uk-text-danger"}`}>
+                                {props.errors.username && props.touched.username && props.errors.username}
                                 </span>
                         </small>
                         <Field
-                            name="first_name"
-                            label="First name"
-                            placeholder="First name"
-                            className="uk-input uk-form-large uk-border-rounded"
-                            autoCapitalize="off"
-                            required
-                        />
-                    </label>
-                    <label className="uk-width-expand">
-                        <small className="uk-display-inline">
-                            Last name <span className={`${props.errors.last_name && props.touched.last_name && "uk-text-danger"}`}>
-                                {props.errors.last_name && props.touched.last_name && props.errors.last_name}
-                                </span>
-                        </small>
-                        <Field
-                            name="last_name"
-                            label="Last name"
-                            placeholder="Last name"
+                            name="username"
+                            label="Username"
+                            placeholder="Username"
                             className="uk-input uk-form-large uk-border-rounded"
                             autoCapitalize="off"
                             required

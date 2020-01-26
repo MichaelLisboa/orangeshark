@@ -4,35 +4,38 @@ import { UserContext } from "../Contexts/UserContext";
 import axios from "axios";
 import { CampaignUrls } from "../../constants/Urls";
 import List from "./List";
+import Create from "./Create";
 
 import Data from "../Dashboard/Data";
 
-async function getCampaigns(id, token) {
-    // const endpoint = `${CampaignUrls.DEFAULT}`;
-    // const result = await axios.get(endpoint, {
-    //         headers: {
-    //             authorization: `Token ${token}`
-    //         }
-    //     })
-    // const res = await result.data;
-    const res = await Data
+async function getCampaigns(token) {
+    const endpoint = `${CampaignUrls.DEFAULT}`;
+    const result = await axios.get(endpoint, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    const res = await result.data;
+    // const res = await Data
     return res;
 }
 
 const Campaigns = props => {
-    const [user,, token,] = useContext(UserContext);
+    const [token, setToken] = useContext(UserContext);
     const [campaigns, setPosts] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(
         () => {
-            getCampaigns(user.id, token)
+            console.log("CAMPAIGN TOKEN", token)
+            getCampaigns(token)
             .then(response => {
                 setPosts(response)
                 setIsLoading(false)
             })
             .catch(err => {
-                console.log("GET USER RESPONSE", err)
+                console.log("GET CAMPAIGNS ERROR", err.message)
+                setToken();
             })
         }, []
     )
@@ -50,7 +53,7 @@ const Campaigns = props => {
         {campaigns.length ?
             <>
                 <section className="uk-section">
-                    <List isLoading={isLoading} campaigns={campaigns} user={user} />
+                    <List isLoading={isLoading} campaigns={campaigns} />
                     <div className="uk-margin-large">
                         <Link
                             to="/campaign/create"
@@ -62,8 +65,8 @@ const Campaigns = props => {
                 </section>
             </>
             :
-            <section className="uk-section">
-                MONKEY JUNKY
+            <section className="uk-section uk-padding-remove">
+                <Create />
             </section>
         }
         </>

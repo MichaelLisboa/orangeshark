@@ -16,15 +16,12 @@ import PasswordResetConfirm from "../Auth/PasswordResetConfirm";
 import Login from "../Auth/Login";
 import Logout from "../Auth/Logout";
 import Home from "../Home";
-import Profile from "../Profile";
-import EditProfile from "../Profile/EditProfile";
+import Dashboard from "../Dashboard";
 
 import Campaigns from "../Campaigns";
 import Create from "../Campaigns/Create";
 import View from "../Campaigns/View";
 import List from "../Campaigns/List";
-
-import ViewUser from "../Users";
 
 import Stage from "../Stage";
 
@@ -40,12 +37,10 @@ const AppRoutes = props => {
             <ScrollToTopRoute path="/reset-password-done" component={PasswordResetDone}/>
             <ScrollToTopRoute path="/login" component={(Login)} />
             <ScrollToTopRoute path="/logout" component={(Logout)} />
-            <ProtectedRoute path="/profile/edit/:id" component={(EditProfile)} />
-            <ProtectedRoute path="/profile" component={(Profile)} />
+            <ProtectedRoute path="/dashboard" component={(Dashboard)} />
             <ProtectedRoute path="/campaigns" component={(Campaigns)} />
             <ProtectedRoute exact path="/campaign/create" component={(Create)} />
             <ProtectedRoute path="/campaign/:id" component={(View)} />
-            <ProtectedRoute path="/user/:id" component={(ViewUser)} />
             <ProtectedRoute path="/design" component={Stage} />
 
             <ScrollToTopRoute path="/" component={(Home)} />

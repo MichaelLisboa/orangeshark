@@ -87,7 +87,7 @@ const Dashboard = props => {
                 setIsLoading(false);
             })
             .catch(err => {
-                console.log("GET USER RESPONSE", err)
+                console.log("GET DASHBOARD ERROR", err)
             })
         }, []
     )

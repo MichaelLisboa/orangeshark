@@ -57,3 +57,10 @@ h2.content-title {
 .uk-article-meta {
   font-size: 10px;
 }
+
+.default-form .uk-text-small {
+  font-size: 0.65em;
+  text-transform: uppercase;
+  margin-bottom: 0 !important;
+  color: rgb(86, 165, 218) !important;
+}

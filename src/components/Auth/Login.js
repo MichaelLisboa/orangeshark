@@ -10,8 +10,7 @@ import LoginForm from "./presentation/LoginForm";
 import "./Auth.css";
 
 const getSchema = () => Yup.object().shape({
-    email: Yup.string()
-        .email('Please enter a valid email address.')
+    username: Yup.string()
         .required('Please enter your email address.'),
     password: Yup.string()
         .min(8, "Password must be at least 8 characters.")
@@ -19,14 +18,14 @@ const getSchema = () => Yup.object().shape({
 });
 
 const Login = props =>  {
-    const [user, setUser, token, setToken] = useContext(UserContext);
+    const [token, setToken] = useContext(UserContext);
     const [serverError, setServerError] = useState();
 
     useEffect(
         () => {
-            if(token) history.push("/profile");
+            if(token) history.push("/dashboard");
             return () => console.log("CLEANUP")
-        }, [token, user]
+        }, [token]
     )
 
     useEffect(
@@ -38,15 +37,16 @@ const Login = props =>  {
     const handleSubmit = data => {
         const endpoint = `${AuthUrls.LOGIN}`
         const body = {
-                email: data.email,
+                username: data.username,
                 password: data.password,
             };
 
         return axios.post(endpoint, body)
         .then((response) => {
             const res = response.data;
-            setToken(res.key);
-            localStorage.setItem("token", res.key);
+            setToken(res.access);
+            localStorage.setItem("token", res.access);
+            localStorage.setItem("refresh", res.refresh);
         })
         .catch((err) => {
             let errors = [];
@@ -62,7 +62,7 @@ const Login = props =>  {
     return (
         <Formik
             initialValues={{
-                email: "",
+                username: "",
                 password: "",
             }}
             onSubmit={(values, { setSubmitting, resetForm }) => {

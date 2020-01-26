@@ -16,14 +16,14 @@ const getSchema = () => Yup.object().shape({
 });
 
 const PasswordReset = props => {
-    const [user, setUser, token, setToken] = useContext(UserContext);
+    const [token, setToken] = useContext(UserContext);
     const [serverError, setServerError] = useState();
 
     useEffect(
         () => {
             if(token) history.push("/profile");
             return () => console.log("CLEANUP")
-        }, [token, user]
+        }, [token]
     )
 
     useEffect(

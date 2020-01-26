@@ -7,9 +7,11 @@ import account from "../../images/Icons/Account.png";
 
 const NavMenu = () => {
     const {location} = useRouter();
-    const [user, setUser, token, setToken] = useContext(UserContext);
+    const [token, setToken] = useContext(UserContext);
 
     return (
+        <>
+        <div className="top-border">&nbsp;</div>
         <div className="nav"
             data-uk-sticky="cls-active: uk-background-default uk-box-shadow-medium;">
             <div className="uk-container uk-container-expand uk-padding-remove">
@@ -25,7 +27,7 @@ const NavMenu = () => {
                             }
                         </div>
                     </div>
-                    {token && user ?
+                    {token ?
                     <div className="uk-navbar-right">
                         <ul className="app-nav uk-navbar-nav uk-visible@m">
                             {location.pathname !== '/' && location.pathname !== '/profile' &&
@@ -50,7 +52,7 @@ const NavMenu = () => {
                         <ul className="uk-navbar-nav uk-visible@m">
                             <li>
                                 <NavLink
-                                    to={`/profile`}>
+                                    to={`/dashboard`}>
                                     <img
                                         src={account}
                                         alt="Go to profile"
@@ -95,6 +97,7 @@ const NavMenu = () => {
                 </nav>
             </div>
         </div>
+        </>
     )
 }
 

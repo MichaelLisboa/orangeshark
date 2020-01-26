@@ -9,9 +9,7 @@ import SignupForm from "./presentation/SignupForm";
 import "./Auth.css";
 
 const getSchema = () => Yup.object().shape({
-    first_name: Yup.string()
-        .required('* Required'),
-    last_name: Yup.string()
+    username: Yup.string()
         .required('* Required'),
     email: Yup.string()
         .email('* Enter a valid email address.')
@@ -40,18 +38,18 @@ const Signup = props =>  {
     const handleSubmit = data => {
         const endpoint = `${AuthUrls.SIGNUP}`
         const body = {
-                first_name: data.first_name,
-                last_name: data.last_name,
+                username: data.username,
                 email: data.email,
-                password1: data.password,
-                password2: data.password2,
+                password: data.password,
             };
 
         return axios.post(endpoint, body)
         .then((response) => {
+            console.log(response)
             history.push("/signup-done");
         })
         .catch((err) => {
+            console.log(err)
             let errors = [];
             try {
                 Object.values(err.response.data).map(e => errors.push(...e));
@@ -65,7 +63,7 @@ const Signup = props =>  {
     return (
         <Formik
             initialValues={{
-                first_name: "",
+                username: "",
                 last_name: "",
                 email: "",
                 password: "",

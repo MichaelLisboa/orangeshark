@@ -6,17 +6,17 @@ import history from "../../lib/historyUtils";
 import "./Home.css";
 
 const Home = props => {
-    const [user,,token,] = useContext(UserContext);
+    const [token, setToken] = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(
         () => {
-            if(token && user) {
-                history.push("/profile");
+            if(token) {
+                history.push("/dashboard");
             } else {
                 setIsLoading(false);
             }
-        }, [token, user]
+        }, [token]
     )
 
     if(isLoading) {

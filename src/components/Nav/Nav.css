@@ -6,7 +6,19 @@ nav {
   height: 65px;
   min-height: 65px;
   padding: 0 12px;
-  border-top: 8px solid rgba(52, 121, 154, 1);
+}
+
+.top-border {
+  height: 8px;
+  width: 100%;
+  background: rgba(86, 165, 218, 1);
+  background: -moz-linear-gradient(left, rgba(86, 165, 218, 1) 0%, rgba(140, 185, 84, 1) 25%, rgba(241, 183, 68, 1) 50%, rgba(218, 98, 54, 1) 75%, rgba(119, 102, 168, 1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(86, 165, 218, 1)), color-stop(25%, rgba(140, 185, 84, 1)), color-stop(50%, rgba(241, 183, 68, 1)), color-stop(75%, rgba(218, 98, 54, 1)), color-stop(100%, rgba(119, 102, 168, 1)));
+  background: -webkit-linear-gradient(left, rgba(86, 165, 218, 1) 0%, rgba(140, 185, 84, 1) 25%, rgba(241, 183, 68, 1) 50%, rgba(218, 98, 54, 1) 75%, rgba(119, 102, 168, 1) 100%);
+  background: -o-linear-gradient(left, rgba(86, 165, 218, 1) 0%, rgba(140, 185, 84, 1) 25%, rgba(241, 183, 68, 1) 50%, rgba(218, 98, 54, 1) 75%, rgba(119, 102, 168, 1) 100%);
+  background: -ms-linear-gradient(left, rgba(86, 165, 218, 1) 0%, rgba(140, 185, 84, 1) 25%, rgba(241, 183, 68, 1) 50%, rgba(218, 98, 54, 1) 75%, rgba(119, 102, 168, 1) 100%);
+  background: linear-gradient(to right, rgba(86, 165, 218, 1) 0%, rgba(140, 185, 84, 1) 25%, rgba(241, 183, 68, 1) 50%, rgba(218, 98, 54, 1) 75%, rgba(119, 102, 168, 1) 100%);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#56a5da', endColorstr='#7766a8', GradientType=1);
 }
 
 nav a,
@@ -52,8 +64,8 @@ ul.app-nav li {
   nav {
     padding-left: 64px;
     padding-right: 64px;
-    height: 98px;
-    min-height: 98px;
+    height: 75px;
+    min-height: 75px;
     /* background: rgb(58, 135, 172);
     background: -moz-linear-gradient(180deg, rgba(58, 135, 172, 1) 0%, rgba(68, 152, 192, 1) 25%, rgba(115, 185, 218, 1) 100%);
     background: -webkit-linear-gradient(180deg, rgba(58, 135, 172, 1) 0%, rgba(68, 152, 192, 1) 25%, rgba(115, 185, 218, 1) 100%);

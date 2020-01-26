@@ -8,14 +8,14 @@ const LoginForm = ({serverError, ...props}) => {
             className="default-form"
             >
             <div className="uk-margin">
-                {props.errors.email && props.touched.email &&
-                    <small className="uk-text-danger">{props.errors.email}</small>
+                {props.errors.username && props.touched.username &&
+                    <small className="uk-text-danger">{props.errors.username}</small>
                 }
                 <Field
-                    name="email"
-                    label="Email"
-                    placeholder="Email"
-                    className={`uk-input uk-form-large uk-border-rounded ${props.errors.email && props.touched.email ? "uk-form-danger" : null}`}
+                    name="username"
+                    label="Username"
+                    placeholder="Username"
+                    className={`uk-input uk-form-large uk-border-rounded ${props.errors.username && props.touched.username ? "uk-form-danger" : null}`}
                     autoComplete="off"
                     autoCapitalize="off"
                     autoCorrect="off"

@@ -1,43 +1,125 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useCallback, useEffect, useContext} from "react";
 import history from "../../lib/historyUtils";
+import { UserContext } from "../Contexts/UserContext";
 import axios from "axios";
 import { CampaignUrls } from "../../constants/Urls";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import CampaignForm from "./presentation/Form";
+import CampaignForm from "./presentation/CampaignForm";
+import {useDropzone} from 'react-dropzone'
 
 const getSchema = () => Yup.object().shape({
-    name: Yup.string()
+    campaign_name: Yup.string()
         .required('This field is required.'),
-    // start_date: Yup.string().required(),
-    // end_date: Yup.string().required()
+    headlines: Yup.string()
+        .required('This field is required.'),
+    ad_text: Yup.string()
+        .required('This field is required.'),
+    keywords: Yup.string()
+        .required('This field is required.'),
+    age_groups: Yup.string()
+        .required('This field is required.'),
+    gender: Yup.string()
+        .required('This field is required.'),
+    languages: Yup.string()
+        .required('This field is required.'),
+    dispaly_links: Yup.string()
+        .required('This field is required.'),
+    target_urls: Yup.string()
+        .required('This field is required.'),
+    link_desc: Yup.string()
+        .required('This field is required.'),
 });
 
 
 const Create = props => {
+    const [token, setToken] = useContext(UserContext);
+    const [files, setFiles] = useState([])
     const [serverError, setServerError] = useState();
+
+    const onDrop = useCallback(acceptedFiles => {
+        // Do something with the files
+        console.log("DRROOPPP", acceptedFiles)
+        const files = [];
+        acceptedFiles.forEach((file) => {
+            const reader = new FileReader()
+            reader.onabort = () => console.log('file reading was aborted')
+            reader.onerror = () => console.log('file reading has failed')
+            reader.onload = () => {
+            // Do whatever you want with the file contents
+            const binaryStr = reader.result
+            console.log(binaryStr)
+            files.push(file.name);
+        }
+        reader.readAsArrayBuffer(file)
+        })
+        console.log("FILES", files)
+        setFiles(files)
+    }, []);
+
+    const {acceptedFiles, getRootProps, getInputProps, isDragActive} = useDropzone({onDrop,
+        getFilesFromEvent: event => myCustomFileGetter(event)
+    })
+
+    async function myCustomFileGetter(event) {
+        const files = [];
+        const fileList = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+
+        for (var i = 0; i < fileList.length; i++) {
+            const file = fileList.item(i);
+
+            Object.defineProperty(file, 'myProp', {
+                value: true
+            });
+
+            files.push(file);
+            // console.log("FILES", files)
+        }
+
+        return files;
+    }
 
     useEffect(
         () => {
             // if(token) history.push("/profile");
             console.log("EFFECT ERROR", serverError)
+            const endpoint = `${CampaignUrls.DEFAULT}`;
+            axios.options(endpoint, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+            .then((response) => {
+                console.log("CREATE CAMPAIGN RESPONSE", response)
+                // history.push(`/campaign/${response.data.id}`);
+            })
+            .catch((error) => {
+                console.log("BIG ERROR", error);
+            });
+
             return () => console.log("CLEANUP")
         }, [serverError]
     )
 
-    const handleSubmit = data => {
-        const endpoint = `${CampaignUrls.DEFAULT}`;
+    const handleSubmit = formData => {
+        console.log("FORM DATA", formData)
+        const endpoint = `${CampaignUrls.CREATE_FB_SINGLE_IMAGE}`;
         const token = localStorage.getItem("token");
         const body = {
-            owner: JSON.parse(localStorage.user).id,
-            name: data.name,
-            start_date: data.startDate._d,
-            end_date: data.endDate._d,
-            brief: data.brief,
-            info: data.info,
+            campaign_name: formData.campaign_name,
+            images: files,
+            headlines: [formData.headlines],
+            ad_text: [formData.ad_text],
+            keywords: [formData.keywords],
+            age_groups: [formData.age_groups],
+            gender: [formData.gender],
+            languages: [formData.languages],
+            dispaly_links: [formData.dispaly_links],
+            target_urls: [formData.target_urls],
+            link_desc: [formData.link_desc]
         };
 
-        console.log(body)
+        console.log("SUBMIT BODY", body)
 
         if (token) {
             return axios({
@@ -45,15 +127,15 @@ const Create = props => {
                 url: endpoint,
                 data: body,
                 headers: {
-                    authorization: `Token ${token}`
+                    Authorization: `Bearer ${token}`
                 }
             })
             .then((response) => {
                 console.log("CREATE CAMPAIGN RESPONSE", response)
-                history.push(`/campaign/${response.data.id}`);
+                // history.push(`/campaign/${response.data.id}`);
             })
             .catch((error) => {
-                console.log("BIG ERROR", error);
+                console.log("BIG ERROR", error.message);
             });
         }
     }
@@ -61,28 +143,62 @@ const Create = props => {
     return (
         <Formik
             initialValues={{
-                name: "",
-                brief: "",
-                info: "",
-                start_date: "",
-                end_date: "",
+                campaign_name: "",
+                images: [],
+                headlines: [],
+                ad_text: [],
+                keywords: [],
+                age_groups: [],
+                gender: [],
+                languages: [],
+                dispaly_links: [],
+                target_urls: [],
+                link_desc: []
             }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 setTimeout(() => {
                     setSubmitting(false);
                 }, 1000);
+                console.log(
+                    values
+                    // JSON.stringify(
+                    //     {
+                    //         files: values.files.map(file => ({
+                    //             fileName: file.name,
+                    //             type: file.type,
+                    //             size: `${file.size} bytes`
+                    //         }))
+                    //     },
+                    //     null,
+                    //     2
+                    // )
+                );
                 handleSubmit(values);
             }}
             validationSchema={getSchema}
             render={formikProps =>
-                <section className="uk-height-1-1">
-                    <div className="uk-height-1-1 uk-container uk-container-small uk-position-z-index uk-position-relative">
-                        <div className="uk-width-1-2@s uk-padding-small" data-uk-scrollspy="cls: uk-animation-fade">
-                            <p className="uk-h1 uk-margin-large-top uk-margin-xlarge">Start a New Gig</p>
-                            <CampaignForm
-                                serverError={serverError}
-                                {...formikProps}
-                                {...props} />
+                <section className="uk-margin-remove">
+                    <div className="uk-container uk-container-expand uk-background-primary uk-margin-remove" data-uk-height-viewport="offset-top: true; offset-bottom: 8">
+                        <div className="uk-container uk-container-small">
+                            <div className="uk-grid-small uk-grid-match" data-uk-grid>
+                                <div className="uk-width-1-3@s uk-visible@s uk-padding-small uk-light">
+                                    <p className="">Create a new campaign</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lacinia tempus erat quis finibus. Duis et massa consequat, gravida eros ac, malesuada quam.</p>
+                                    <p>Praesent laoreet pretium metus, et blandit tortor molestie sit amet. Morbi accumsan non magna sit amet consequat. Proin mattis ipsum et dolor facilisis commodo.</p>
+                                </div>
+                                <div className="uk-width-2-3@s uk-padding">
+                                    <CampaignForm
+                                        serverError={serverError}
+                                        onDrop={onDrop}
+                                        myCustomFileGetter={myCustomFileGetter}
+                                        acceptedFiles={acceptedFiles}
+                                        getRootProps={getRootProps}
+                                        getInputProps={getInputProps}
+                                        isDragActive={isDragActive}
+                                        {...formikProps}
+                                        {...props} />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>

@@ -3,48 +3,57 @@ import axios from "axios";
 import {AuthUrls} from "../../constants/Urls";
 const UserContext = React.createContext([{}, () => {}]);
 
-async function getUser(token) {
-    let user = JSON.parse(localStorage.getItem("user"));
-    if (!user) {
-        console.log("QUERY FOR USER")
-        const endpoint = AuthUrls.USER_PROFILE;
-        const result = await axios.get(endpoint, {
-                headers: {
-                    authorization: `Token ${token}`
-                }
+async function getToken(refresh) {
+    let token = localStorage.getItem("token");
+    if (!token) { // IF NOT SEND REQUEST TO API
+        console.log("QUERY FOR USER", localStorage.refresh, token)
+        const endpoint = `${AuthUrls.REFRESH}`; // THE API URL ENDPOINT
+        const result = await axios.post(endpoint, {
+                refresh: refresh
             })
-        user = await result.data;
+        console.log("RESULT", result.data)
+        token = await result.data; // THE RESULT FROM API
     } else {
         console.log("GET USER FROM LOCAL STORAGE")
     }
-    return user;
+    return token;
 }
 
 const UserProvider = (props) => {
     const [token, setToken] = useState(localStorage.getItem("token"))
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
+    // const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
 
     useEffect(
         () => {
-            if(token) {
-                getUser(token)
+            const refresh = localStorage.getItem("refresh");
+            if(!token && refresh) {
+                getToken(refresh)
                 .then(response => {
-                    localStorage.setItem("user", JSON.stringify(response));
-                    setUser(response)
+                    console.log("PROVIDER", response)
+                    // localStorage.setItem("user", JSON.stringify(response));
+                    // setUser(response)
                 })
                 .catch(error => {
                     console.log("GET USER ERROR", error.response)
+                    const refresh = localStorage.refresh;
+                    // setUser(JSON.parse(localStorage.getItem("user")))
+                    console.log("TOKEN REFRESH", refresh)
+                    axios.post(AuthUrls.REFRESH, {refresh: refresh})
+                    .then((response) => {
+                        console.log("REFRESH TOKEN RESPONSE", response)
+                        localStorage.setItem("token", response.data.access);
+                        localStorage.setItem("refresh", refresh);
+                    })
                 })
             } else {
-                setUser(JSON.parse(localStorage.getItem("user")))
+                const refresh = localStorage.refresh;
+                // setUser(JSON.parse(localStorage.getItem("user")))
             }
         }, [token]
     )
 
-    if(token && !user) return null;
-
     return (
-        <UserContext.Provider value={[user, setUser, token, setToken]}>
+        <UserContext.Provider value={[token, setToken]}>
             {props.children}
         </UserContext.Provider>);
 }
