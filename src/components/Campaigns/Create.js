@@ -29,6 +29,10 @@ const getSchema = () => Yup.object().shape({
         .required('This field is required.'),
     link_desc: Yup.string()
         .required('This field is required.'),
+    // ad_network: Yup.string()
+    //     .required('This field is required.'),
+    // mediaType: Yup.string()
+    //     .required('This field is required.'),
 });
 
 
@@ -36,6 +40,8 @@ const Create = props => {
     const [token, setToken] = useContext(UserContext);
     const [files, setFiles] = useState([])
     const [serverError, setServerError] = useState();
+    const [adNetwork, setAdNetwork] = useState("");
+    const [mediaType, setMediaType] = useState("");
 
     const onDrop = useCallback(acceptedFiles => {
         // Do something with the files
@@ -101,9 +107,41 @@ const Create = props => {
         }, [serverError]
     )
 
+    useEffect(
+        () => {
+            console.log("SELECTED NETWORK", adNetwork, mediaType)
+        }, [adNetwork, mediaType]
+    );
+
+    const getEndpoint = () => {
+        let url = "";
+        switch(mediaType) {
+            case 'image':
+                url = "single/image/";
+                break
+            case 'video':
+                url = "single/video/";
+                break
+            case 'carousel_image':
+                url = "carousel/image/";
+                break
+            case 'carousel_video':
+                url = "carousel/video/";
+                break
+            case 'text':
+                url = "single/text/";
+                break
+            default:
+                url = "single/image/";
+        }
+        return url;
+    }
+
     const handleSubmit = formData => {
-        console.log("FORM DATA", formData)
-        const endpoint = `${CampaignUrls.CREATE_FB_SINGLE_IMAGE}`;
+        console.log("FORM DATA", formData, adNetwork, mediaType)
+        const root_url = "http://34.70.132.82:8000/campaigns/create/"
+        const network = adNetwork === 'google' ? "google/ads/" : "fb/rhs/";
+        const endpoint = root_url + network + getEndpoint();
         const token = localStorage.getItem("token");
         const body = {
             campaign_name: formData.campaign_name,
@@ -118,8 +156,6 @@ const Create = props => {
             target_urls: [formData.target_urls],
             link_desc: [formData.link_desc]
         };
-
-        console.log("SUBMIT BODY", body)
 
         if (token) {
             return axios({
@@ -153,38 +189,26 @@ const Create = props => {
                 languages: [],
                 dispaly_links: [],
                 target_urls: [],
-                link_desc: []
+                link_desc: [],
+                ad_network: "",
+                media_type: "",
             }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 setTimeout(() => {
                     setSubmitting(false);
                 }, 1000);
-                console.log(
-                    values
-                    // JSON.stringify(
-                    //     {
-                    //         files: values.files.map(file => ({
-                    //             fileName: file.name,
-                    //             type: file.type,
-                    //             size: `${file.size} bytes`
-                    //         }))
-                    //     },
-                    //     null,
-                    //     2
-                    // )
-                );
+                console.log("FIELD VALUES", values);
                 handleSubmit(values);
             }}
             validationSchema={getSchema}
             render={formikProps =>
                 <section className="uk-margin-remove">
-                    <div className="uk-container uk-container-expand uk-background-primary uk-margin-remove" data-uk-height-viewport="offset-top: true; offset-bottom: 8">
+                    <div className="uk-container uk-container-expand uk-background-primary uk-margin-remove uk-flex uk-flex-center uk-flex-middle" data-uk-height-viewport="offset-top: true; offset-bottom: 8">
                         <div className="uk-container uk-container-small">
-                            <div className="uk-grid-small uk-grid-match" data-uk-grid>
+                            <div className="uk-grid-small uk-grid-match uk-flex uk-flex-middle uk-flex-center" data-uk-grid>
                                 <div className="uk-width-1-3@s uk-visible@s uk-padding-small uk-light">
-                                    <p className="">Create a new campaign</p>
+                                    <p className="uk-text-bold uk-text-large">Create a new campaign</p>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lacinia tempus erat quis finibus. Duis et massa consequat, gravida eros ac, malesuada quam.</p>
-                                    <p>Praesent laoreet pretium metus, et blandit tortor molestie sit amet. Morbi accumsan non magna sit amet consequat. Proin mattis ipsum et dolor facilisis commodo.</p>
                                 </div>
                                 <div className="uk-width-2-3@s uk-padding">
                                     <CampaignForm
@@ -195,6 +219,10 @@ const Create = props => {
                                         getRootProps={getRootProps}
                                         getInputProps={getInputProps}
                                         isDragActive={isDragActive}
+                                        setAdNetwork={setAdNetwork}
+                                        setMediaType={setMediaType}
+                                        adNetwork={adNetwork}
+                                        mediaType={mediaType}
                                         {...formikProps}
                                         {...props} />
                                 </div>

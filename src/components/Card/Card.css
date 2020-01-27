@@ -31,3 +31,7 @@
 h3.uk-card-title {
   font-weight: 400 !important;
 }
+
+.wizard-card {
+  height: 550px;
+}

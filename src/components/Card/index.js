@@ -6,8 +6,8 @@ import "./Card.css";
 const cardStyle = {
     card: {
         borderRadius: "4px",
-        minHeight: "550px",
-        opacity: "0.95"
+        // minHeight: "550px",
+        // opacity: "0.95"
     },
     highlight: {
         borderRadius: "4px",

@@ -301,9 +301,9 @@ form.brand-form select:disabled {
   color: rgb(175, 175, 175) !important;
 }
 
-form.default-form {
+/* form.default-form {
   margin-bottom: 48px;
-}
+} */
 
 form.default-form input,
 form.default-form textarea {

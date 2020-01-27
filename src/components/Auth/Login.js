@@ -23,7 +23,7 @@ const Login = props =>  {
 
     useEffect(
         () => {
-            if(token) history.push("/dashboard");
+            if(token) history.push("/campaigns");
             return () => console.log("CLEANUP")
         }, [token]
     )

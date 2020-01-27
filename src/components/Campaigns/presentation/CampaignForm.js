@@ -1,6 +1,14 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import { Form, Field } from "formik";
+import { Form, Field, FieldArray } from "formik";
 import { Wizard, WizardStep } from "../../Wizard";
+
+import google from "../../../images/Icons/Google.png";
+import facebook from "../../../images/Icons/Facebook.png";
+import carouselImage from "../../../images/Icons/Carousel_image.png";
+import carouselVideo from "../../../images/Icons/Carousel_video.png";
+import image from "../../../images/Icons/Image.png";
+import video from "../../../images/Icons/Video.png";
+import text from "../../../images/Icons/Text.png";
 
 const dropzoneStyle = {
   width: "100%",
@@ -13,7 +21,20 @@ const dropzoneStyle = {
   borderRadius: 4
 };
 
-const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDragActive, serverError, ...props}) => {
+const networkOptions = [
+    {value: 'google', label:'Google', image: google, color: "#EC5957"},
+    {value: 'facebook', label:'Facebook', image: facebook, color: "#4AB0D7"}
+]
+
+const mediaOptions = [
+    {type: 'image', label: 'Single Image', image: image},
+    {type: 'video', label: 'Single Video', image: video},
+    {type: 'carousel_image', label: 'Carousel Image', image: carouselImage},
+    {type: 'carousel_video', label: 'Carousel Video', image: carouselVideo},
+    {type: 'text', label: 'Text', image: text},
+]
+
+const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDragActive, setAdNetwork, adNetwork, setMediaType, mediaType, serverError, ...props}) => {
 
     const files = acceptedFiles.map((file, i) => (
         <li key={i}>
@@ -24,7 +45,86 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
     return (
         <Form className="default-form">
             <fieldset className="uk-fieldset">
-                <Wizard>
+                <Wizard formProps={props}>
+                    <WizardStep>
+                        <div className="uk-h4">
+                            Choose Network
+                        </div>
+                        <div style={{height: "70%"}} className="uk-flex uk-flex-middle uk-flex-center">
+                            <FieldArray
+                                name="ad_network"
+                                render={arrayHelpers => (
+                                    <div className="uk-width-1-1 uk-grid-collapse uk-child-width-1-2 uk-text-center" data-uk-grid>
+                                    {networkOptions.map((network, index) => (
+                                        <div key={index} className="project-status">
+                                            <label className="">
+                                                <Field
+                                                    name="ad_network"
+                                                    component="input"
+                                                    type="radio"
+                                                    onChange={
+                                                        () => {
+                                                            setAdNetwork(network.value)
+                                                        }
+                                                    }
+                                                    value={network.value}
+                                                    checked={adNetwork === network.value}
+                                                    className="uk-radio uk-margin-small-right"
+                                                />
+                                                <img
+                                                    src={network.image}
+                                                    alt={network.label}
+                                                />
+                                                <p className="uk-h3 uk-margin-small">{network.label}</p>
+                                            </label>
+                                        </div>
+                                    ))}
+                                    </div>
+                                )}
+                            />
+                        </div>
+                    </WizardStep>
+                    <WizardStep>
+                        <div className="uk-h4">
+                            Select Campaign Type
+                        </div>
+                        <div style={{height: "80%"}} className="uk-flex uk-flex-middle uk-flex-center">
+                            <FieldArray
+                                name="media_type_array"
+                                render={arrayHelpers => (
+                                    <div className="uk-width-1-1 uk-grid-collapse uk-child-width-1-2 uk-text-center" data-uk-grid>
+                                    {mediaOptions.map((media, index) => (
+                                        <div key={index} className="uk-padding-small">
+                                        <div className="project-status">
+                                            <label className="">
+                                                <Field
+                                                    name="media_type"
+                                                    component="input"
+                                                    type="radio"
+                                                    onChange={
+                                                        () => {
+                                                            setMediaType(media.type)
+                                                        }
+                                                    }
+                                                    value={media.type}
+                                                    checked={mediaType === media.type}
+                                                    className="uk-radio uk-margin-small-right"
+                                                />
+                                                <img
+                                                    style={{maxHeight: "56px"}}
+                                                    src={media.image}
+                                                    alt={media.type}
+                                                />
+                                                <p className="uk-h5 uk-margin-small">{media.label}</p>
+                                            </label>
+                                        </div>
+                                        </div>
+                                    ))}
+                                    </div>
+                                )}
+                            />
+                        </div>
+                    </WizardStep>
                     <WizardStep>
                         <div className="uk-h4">
                             Campaign Details
