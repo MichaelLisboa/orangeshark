@@ -19,6 +19,28 @@ nav {
   background: -ms-linear-gradient(left, rgba(86, 165, 218, 1) 0%, rgba(140, 185, 84, 1) 25%, rgba(241, 183, 68, 1) 50%, rgba(218, 98, 54, 1) 75%, rgba(119, 102, 168, 1) 100%);
   background: linear-gradient(to right, rgba(86, 165, 218, 1) 0%, rgba(140, 185, 84, 1) 25%, rgba(241, 183, 68, 1) 50%, rgba(218, 98, 54, 1) 75%, rgba(119, 102, 168, 1) 100%);
   filter: progid:dximagetransform.microsoft.gradient(startColorstr='#56a5da', endColorstr='#7766a8', GradientType=1);
+  background-size: 120% 100%;
+  -webkit-animation: HeaderAnimation 4s ease infinite;
+  -moz-animation: HeaderAnimation 4s ease infinite;
+  animation: HeaderAnimation 4s ease infinite;
+}
+
+@-webkit-keyframes HeaderAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@-moz-keyframes HeaderAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes HeaderAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 nav a,

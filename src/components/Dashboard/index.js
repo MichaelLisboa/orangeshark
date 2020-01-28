@@ -48,9 +48,9 @@ const gigStatus = gig => {
 
     const s = () =>
         <>
-        <td className="uk-table-expand uk-text-truncate">
+        <td className="uk-table-expand uk-table-middle uk-text-truncate">
             <Link className="uk-link-reset uk-link-text" to={`/campaign/${gig.id}`}>
-                <small style={{color: status.color}}>{gig.name}</small>
+                <p className="uk-text-truncate" style={{color: status.color}}>{gig.name}</p>
             </Link>
         </td>
         <td className="uk-preserve-width uk-text-right">
@@ -67,7 +67,7 @@ const gigStatus = gig => {
     return s()
 }
 
-async function getProjects(id, token) {
+async function getProjects(token) {
     // const endpoint = `${ProjectUrls.DEFAULT}`;
     const result = await Data
     const res = await result;
@@ -75,13 +75,13 @@ async function getProjects(id, token) {
 }
 
 const Dashboard = props => {
-    const [user,, token,] = useContext(UserContext);
+    const [token,] = useContext(UserContext);
     const [gigs, setGigs] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(
         () => {
-            getProjects(user.id, token)
+            getProjects(token)
             .then(response => {
                 setGigs(response);
                 setIsLoading(false);
@@ -112,8 +112,8 @@ const Dashboard = props => {
 
     return (
         <>
-        <div className="uk-container">
-            <h1>Hi {user.first_name}<br />{homeTitle()}</h1>
+        <div className="uk-container uk-container-small" data-uk-height-viewport="offset-top: true; offset-bottom: 8.5">
+            <h1 className="uk-margin-large-top">Hi, {homeTitle()}</h1>
             <div className="uk-grid-collapse uk-padding-small uk-padding-remove-bottom uk-margin-small-bottom" data-uk-grid>
                 <div className="uk-width-expand">
                     <h6 className="uk-text-uppercase">Your Campaigns</h6>
@@ -128,7 +128,7 @@ const Dashboard = props => {
             </div>
             <div className="uk-card uk-card-default uk-card-small">
                 <div className="uk-card-body">
-                    <table className="uk-table uk-table-small uk-table-divider uk-table-justify">
+                    <table className="uk-table uk-table-small uk-table-divider uk-table-justify uk-table-middle">
                         <tbody>
                         {gigs
                         .sort((a, b) =>

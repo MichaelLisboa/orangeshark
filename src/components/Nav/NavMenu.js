@@ -11,9 +11,9 @@ const NavMenu = () => {
 
     return (
         <>
-        <div className="top-border">&nbsp;</div>
         <div className="nav"
             data-uk-sticky="cls-active: uk-background-default uk-box-shadow-medium;">
+            <div className="top-border">&nbsp;</div>
             <div className="uk-container uk-container-expand uk-padding-remove">
                 <nav className="uk-navbar uk-navbar-container uk-navbar-transparent" data-uk-navbar>
                     <div className="uk-navbar-left">

@@ -22,16 +22,16 @@ const dropzoneStyle = {
 };
 
 const networkOptions = [
-    {value: 'google', label:'Google', image: google, color: "#EC5957"},
-    {value: 'facebook', label:'Facebook', image: facebook, color: "#4AB0D7"}
+    {value: 'google', label:'Google', image: google, color: "#DA6136"},
+    {value: 'facebook', label:'Facebook', image: facebook, color: "#56A5DA"}
 ]
 
 const mediaOptions = [
-    {type: 'image', label: 'Single Image', image: image},
-    {type: 'video', label: 'Single Video', image: video},
-    {type: 'carousel_image', label: 'Carousel Image', image: carouselImage},
-    {type: 'carousel_video', label: 'Carousel Video', image: carouselVideo},
-    {type: 'text', label: 'Text', image: text},
+    {type: 'image', label: 'Single Image', image: image, color: "#8CB954"},
+    {type: 'video', label: 'Single Video', image: video, color: "#56A5DA"},
+    {type: 'carousel_image', label: 'Carousel Image', image: carouselImage, color: "#DA6136"},
+    {type: 'carousel_video', label: 'Carousel Video', image: carouselVideo, color: "#7666A8"},
+    {type: 'text', label: 'Text', image: text, color: "#F1B844"},
 ]
 
 const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDragActive, setAdNetwork, adNetwork, setMediaType, mediaType, serverError, ...props}) => {
@@ -45,7 +45,7 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
     return (
         <Form className="default-form">
             <fieldset className="uk-fieldset">
-                <Wizard formProps={props}>
+                <Wizard formProps={props} adNetwork={adNetwork} mediaType={mediaType}>
                     <WizardStep>
                         <div className="uk-h4">
                             Choose Network
@@ -64,7 +64,8 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
                                                     type="radio"
                                                     onChange={
                                                         () => {
-                                                            setAdNetwork(network.value)
+                                                            setAdNetwork(network.value);
+                                                            setMediaType();
                                                         }
                                                     }
                                                     value={network.value}
@@ -75,7 +76,10 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
                                                     src={network.image}
                                                     alt={network.label}
                                                 />
-                                                <p className="uk-h3 uk-margin-small">{network.label}</p>
+                                                <h4
+                                                    style={{color: adNetwork === network.value ? network.color : "#c0c0c0"}}
+                                                    className="uk-margin-small">{network.label}
+                                                </h4>
                                             </label>
                                         </div>
                                     ))}
@@ -93,7 +97,9 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
                                 name="media_type_array"
                                 render={arrayHelpers => (
                                     <div className="uk-width-1-1 uk-grid-collapse uk-child-width-1-2 uk-text-center" data-uk-grid>
-                                    {mediaOptions.map((media, index) => (
+                                    {mediaOptions
+                                        .filter(m => (m.type !== 'text' && adNetwork === 'facebook') || adNetwork === 'google')
+                                        .map((media, index) => (
                                         <div key={index} className="uk-padding-small">
                                         <div className="project-status">
                                             <label className="">
@@ -115,7 +121,11 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
                                                     src={media.image}
                                                     alt={media.type}
                                                 />
-                                                <p className="uk-h5 uk-margin-small">{media.label}</p>
+                                                <h6
+                                                    style={{color: mediaType === media.type ? media.color : "#c0c0c0"}}
+                                                    className="uk-margin-remove uk-padding-small">
+                                                    {media.label}
+                                                </h6>
                                             </label>
                                         </div>
                                         </div>
