@@ -1,0 +1,12 @@
+steps:
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run',  'build']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/orangeshark-frontend', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/orangeshark-frontend']
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ['beta', 'run', 'deploy', 'orangeshark-frontend', '--image', 'gcr.io/$PROJECT_ID/orangeshark-frontend', '--region', 'asia-northeast1','--platform', 'managed']
+images: ['gcr.io/$PROJECT_ID/orangeshark-frontend']
