@@ -46,3 +46,20 @@
 .project-info img {
   max-width: 12px;
 }
+
+.dzu-dropzone {
+  border-style: none !important;
+  min-height: 75% !important;
+}
+
+.dzu-previewContainer {
+  padding: 8px 3% !important;
+}
+
+.dzu-previewStatusContainer {
+  min-width: 70% !important;
+}
+
+.dzu-previewStatusContainer progress {
+  width: 100% !important;
+}

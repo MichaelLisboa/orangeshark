@@ -139,7 +139,8 @@ const Create = props => {
 
     const handleSubmit = formData => {
         console.log("FORM DATA", formData, adNetwork, mediaType)
-        const root_url = "http://34.70.132.82:8000/campaigns/create/"
+        const root_url = "https://app.orangeshark.xyz/campaigns/create/";
+        // const root_url = "http://127.0.0.1:3000/campaigns/create/";
         const network = adNetwork === 'google' ? "google/ads/" : "fb/rhs/";
         const endpoint = root_url + network + getEndpoint();
         const token = localStorage.getItem("token");

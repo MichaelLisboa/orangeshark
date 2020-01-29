@@ -1,4 +1,4 @@
-const ROOT_URL = "http://34.70.132.82:8000";
+const ROOT_URL = "https://app.orangeshark.xyz";
 // const ROOT_URL = "http://127.0.0.1:8000/api/v1";
 
 export const AuthUrls = {
@@ -8,7 +8,6 @@ export const AuthUrls = {
     RESET_PASSWORD: `${ROOT_URL}/rest-auth/password/change/`,
     RESET_PASSWORD_CONFIRM: `${ROOT_URL}/rest-auth/password/change/verify-email/`,
     USER_ACTIVATION: `${ROOT_URL}/rest-auth/registration/verify-email/`,
-    DEFAULT: `${ROOT_URL}/user/images/`,
 };
 
 export const CampaignUrls = {
@@ -23,3 +22,8 @@ export const CampaignUrls = {
     CREATE_GOOGLE_SINGLE_TEXT: `${ROOT_URL}/campaigns/create/fb/rhs/single/text/`,
     CREATE_GOOGLE_SINGLE_VIDEO: `${ROOT_URL}/campaigns/create/fb/rhs/single/video/`,
 };
+
+export const MediaUrls = {
+    IMAGE_UPLOAD: `${ROOT_URL}/user/image/upload/`,
+    IMAGE_LIST: `${ROOT_URL}/user/images/`,
+}

@@ -1,6 +1,10 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
+import axios from "axios";
 import { Form, Field, FieldArray } from "formik";
+import Dropzone from "react-dropzone-uploader";
+import "react-dropzone-uploader/dist/styles.css";
 import { Wizard, WizardStep } from "../../Wizard";
+import { MediaUrls } from "../../../constants/Urls";
 
 import google from "../../../images/Icons/Google.png";
 import facebook from "../../../images/Icons/Facebook.png";
@@ -10,16 +14,6 @@ import image from "../../../images/Icons/Image.png";
 import video from "../../../images/Icons/Video.png";
 import text from "../../../images/Icons/Text.png";
 
-const dropzoneStyle = {
-  width: "100%",
-  height: "100px",
-  // padding: "10px",
-  borderWidth: 1,
-  backgroundColor: "rgba(250, 250, 250, 0.5)",
-  borderColor: "rgba(240, 240, 240, 0.75)",
-  borderStyle: "solid",
-  borderRadius: 4
-};
 
 const networkOptions = [
     {value: 'google', label:'Google', image: google, color: "#DA6136"},
@@ -36,11 +30,53 @@ const mediaOptions = [
 
 const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDragActive, setAdNetwork, adNetwork, setMediaType, mediaType, serverError, ...props}) => {
 
-    const files = acceptedFiles.map((file, i) => (
-        <li key={i}>
-            {file.name}-{file.path} - {file.size} bytes
-        </li>
-    ));
+    // specify upload params and url for your files
+    const getUploadParams = async ({file, meta }) => {
+        const endpoint = MediaUrls.IMAGE_UPLOAD;
+        const token = localStorage.getItem("token");
+        const body = new FormData();
+        body.append('image_file', file);
+
+        const postData = {
+            url: endpoint,
+            body: body,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            meta: {image_file: file.name}
+        }
+
+        return postData
+    }
+
+    const handleChangeStatus = (fileWithMeta, status) => {
+        const endpoint = MediaUrls.IMAGE_LIST;
+        const token = localStorage.getItem("token");
+        if (status === 'done') {
+            const response = JSON.parse(fileWithMeta.xhr.response);
+            console.log("SUCCESS", response, status);
+            return axios({
+                method: "GET",
+                url: endpoint,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((response) => {
+                console.log("LIST IMAGES", response)
+                // history.push(`/campaign/${response.data.id}`);
+            })
+        } else if (status === 'error_upload') {
+            // You can play around with fileWithMeta.xhr here and should work.
+            console.log("ERROR", fileWithMeta.xhr.responseText)
+        }
+    }
+
+    // receives array of files that are done uploading when submit button is clicked
+    const handleUpload = (files, allFiles) => {
+        console.log("FILES AFTER UPLOAD", files.map(f => f.meta))
+        allFiles.forEach(f => f.remove())
+    }
 
     return (
         <Form className="default-form">
@@ -330,28 +366,16 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
                     </WizardStep>
 
                     <WizardStep>
-                        <div className="uk-card-header">
+                        <div className="uk-h4">
                             Upload files
                         </div>
-                        <div style={dropzoneStyle} {...getRootProps()}>
-                            <input
-                                name="images"
-                                {...getInputProps()}
-                            />
-                            {
-                                isDragActive ?
-                                <p className="uk-padding-small">Drop the files here ...</p> :
-                                <p className="uk-padding-small">Drag 'n' drop some files here, or click to select files</p>
-                            }
-
-                            { files.length ?
-                            <aside>
-                                <h4>Files</h4>
-                                <ul>{files}</ul>
-                            </aside>
-                            : null
-                          }
-                        </div>
+                        <Dropzone
+                            getUploadParams={getUploadParams}
+                            onChangeStatus={handleChangeStatus}
+                            onSubmit={handleUpload}
+                            accept="image/*,video/*"
+                            submitButtonContent="Upload files"
+                        />
                     </WizardStep>
                 </Wizard>
             </fieldset>

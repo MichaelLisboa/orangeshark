@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Contexts/UserContext";
 import axios from "axios";
-import { CampaigntUrls } from "../../constants/Urls";
+import { CampaignUrls } from "../../constants/Urls";
 
 import Data from "./Data";
 
