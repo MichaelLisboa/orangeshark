@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/orangeshark/static/css/main.ec9bb321.chunk.css",
-    "main.js": "/orangeshark/static/js/main.21a3132c.chunk.js",
+    "main.css": "/orangeshark/static/css/main.7cf98767.chunk.css",
+    "main.js": "/orangeshark/static/js/main.8668c043.chunk.js",
     "runtime-main.js": "/orangeshark/static/js/runtime-main.008b4b6d.js",
     "static/css/2.af27e82a.chunk.css": "/orangeshark/static/css/2.af27e82a.chunk.css",
-    "static/js/2.a1625c61.chunk.js": "/orangeshark/static/js/2.a1625c61.chunk.js",
+    "static/js/2.70ab9abb.chunk.js": "/orangeshark/static/js/2.70ab9abb.chunk.js",
     "index.html": "/orangeshark/index.html",
-    "precache-manifest.8a09862c3690f69568695c790a0ff191.js": "/orangeshark/precache-manifest.8a09862c3690f69568695c790a0ff191.js",
+    "precache-manifest.d4f89116ba5ff7584f305d76f721d714.js": "/orangeshark/precache-manifest.d4f89116ba5ff7584f305d76f721d714.js",
     "service-worker.js": "/orangeshark/service-worker.js",
-    "static/js/2.a1625c61.chunk.js.LICENSE": "/orangeshark/static/js/2.a1625c61.chunk.js.LICENSE",
+    "static/js/2.70ab9abb.chunk.js.LICENSE": "/orangeshark/static/js/2.70ab9abb.chunk.js.LICENSE",
     "static/media/logo-strap.png": "/orangeshark/static/media/logo-strap.d5add290.png",
     "static/media/logo.png": "/orangeshark/static/media/logo.6ddc3dcb.png"
   },
   "entrypoints": [
     "static/js/runtime-main.008b4b6d.js",
     "static/css/2.af27e82a.chunk.css",
-    "static/js/2.a1625c61.chunk.js",
-    "static/css/main.ec9bb321.chunk.css",
-    "static/js/main.21a3132c.chunk.js"
+    "static/js/2.70ab9abb.chunk.js",
+    "static/css/main.7cf98767.chunk.css",
+    "static/js/main.8668c043.chunk.js"
   ]
 }
