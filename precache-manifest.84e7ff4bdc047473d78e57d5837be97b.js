@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b280e3e8628fa5ad9f969c7d28e5eedf",
+    "revision": "db8cafe08adfb884a64f45ab3167163d",
     "url": "/orangeshark/index.html"
   },
   {
-    "revision": "58248bcd6a761df6e61a",
+    "revision": "b54567bca06ccaea5570",
     "url": "/orangeshark/static/css/2.c1328484.chunk.css"
   },
   {
-    "revision": "81d4a8aea95064738bc6",
+    "revision": "ea824643b345b7466828",
     "url": "/orangeshark/static/css/main.e021743c.chunk.css"
   },
   {
-    "revision": "58248bcd6a761df6e61a",
-    "url": "/orangeshark/static/js/2.f6944c6d.chunk.js"
+    "revision": "b54567bca06ccaea5570",
+    "url": "/orangeshark/static/js/2.11a6c15d.chunk.js"
   },
   {
     "revision": "1d68fddd076e4bc4d922c35156efe0af",
-    "url": "/orangeshark/static/js/2.f6944c6d.chunk.js.LICENSE"
+    "url": "/orangeshark/static/js/2.11a6c15d.chunk.js.LICENSE"
   },
   {
-    "revision": "81d4a8aea95064738bc6",
-    "url": "/orangeshark/static/js/main.c2493e77.chunk.js"
+    "revision": "ea824643b345b7466828",
+    "url": "/orangeshark/static/js/main.75b70a27.chunk.js"
   },
   {
     "revision": "0b5b816b5d8529011bea",
