@@ -6,7 +6,6 @@ import { CampaignUrls } from "../../constants/Urls";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import CampaignForm from "./presentation/CampaignForm";
-import {useDropzone} from 'react-dropzone'
 
 const getSchema = () => Yup.object().shape({
     campaign_name: Yup.string()
@@ -38,52 +37,10 @@ const getSchema = () => Yup.object().shape({
 
 const Create = props => {
     const [token, setToken] = useContext(UserContext);
-    const [files, setFiles] = useState([])
+    const [media, setMedia] = useState([])
     const [serverError, setServerError] = useState();
     const [adNetwork, setAdNetwork] = useState("");
     const [mediaType, setMediaType] = useState("");
-
-    const onDrop = useCallback(acceptedFiles => {
-        // Do something with the files
-        console.log("DRROOPPP", acceptedFiles)
-        const files = [];
-        acceptedFiles.forEach((file) => {
-            const reader = new FileReader()
-            reader.onabort = () => console.log('file reading was aborted')
-            reader.onerror = () => console.log('file reading has failed')
-            reader.onload = () => {
-            // Do whatever you want with the file contents
-            const binaryStr = reader.result
-            console.log(binaryStr)
-            files.push(file.name);
-        }
-        reader.readAsArrayBuffer(file)
-        })
-        console.log("FILES", files)
-        setFiles(files)
-    }, []);
-
-    const {acceptedFiles, getRootProps, getInputProps, isDragActive} = useDropzone({onDrop,
-        getFilesFromEvent: event => myCustomFileGetter(event)
-    })
-
-    async function myCustomFileGetter(event) {
-        const files = [];
-        const fileList = event.dataTransfer ? event.dataTransfer.files : event.target.files;
-
-        for (var i = 0; i < fileList.length; i++) {
-            const file = fileList.item(i);
-
-            Object.defineProperty(file, 'myProp', {
-                value: true
-            });
-
-            files.push(file);
-            // console.log("FILES", files)
-        }
-
-        return files;
-    }
 
     useEffect(
         () => {
@@ -109,8 +66,8 @@ const Create = props => {
 
     useEffect(
         () => {
-            console.log("SELECTED NETWORK", adNetwork, mediaType)
-        }, [adNetwork, mediaType]
+            console.log("SELECTED INPUTS", media, adNetwork, mediaType)
+        }, [adNetwork, media, mediaType]
     );
 
     const getEndpoint = () => {
@@ -138,15 +95,15 @@ const Create = props => {
     }
 
     const handleSubmit = formData => {
-        console.log("FORM DATA", formData, adNetwork, mediaType)
         const root_url = "https://app.orangeshark.xyz/campaigns/create/";
         // const root_url = "http://127.0.0.1:3000/campaigns/create/";
         const network = adNetwork === 'google' ? "google/ads/" : "fb/rhs/";
+        console.log("FORM DATA", formData, adNetwork, mediaType, media)
         const endpoint = root_url + network + getEndpoint();
         const token = localStorage.getItem("token");
         const body = {
             campaign_name: formData.campaign_name,
-            images: files,
+            images: media,
             headlines: [formData.headlines],
             ad_text: [formData.ad_text],
             keywords: [formData.keywords],
@@ -157,6 +114,8 @@ const Create = props => {
             target_urls: [formData.target_urls],
             link_desc: [formData.link_desc]
         };
+
+        console.log("SUBMIT BODY", JSON.stringify(body))
 
         if (token) {
             return axios({
@@ -181,7 +140,7 @@ const Create = props => {
         <Formik
             initialValues={{
                 campaign_name: "",
-                images: [],
+                images: media,
                 headlines: [],
                 ad_text: [],
                 keywords: [],
@@ -191,8 +150,8 @@ const Create = props => {
                 dispaly_links: [],
                 target_urls: [],
                 link_desc: [],
-                ad_network: "",
-                media_type: "",
+                ad_network: adNetwork,
+                media_type: mediaType,
             }}
             onSubmit={(values, { setSubmitting, resetForm }) => {
                 setTimeout(() => {
@@ -213,13 +172,8 @@ const Create = props => {
                                 </div>
                                 <div className="uk-width-2-3@s uk-padding">
                                     <CampaignForm
-                                        serverError={serverError}
-                                        onDrop={onDrop}
-                                        myCustomFileGetter={myCustomFileGetter}
-                                        acceptedFiles={acceptedFiles}
-                                        getRootProps={getRootProps}
-                                        getInputProps={getInputProps}
-                                        isDragActive={isDragActive}
+                                        media={media}
+                                        setMedia={setMedia}
                                         setAdNetwork={setAdNetwork}
                                         setMediaType={setMediaType}
                                         adNetwork={adNetwork}

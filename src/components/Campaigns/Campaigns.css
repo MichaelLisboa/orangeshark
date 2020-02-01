@@ -63,3 +63,11 @@
 .dzu-previewStatusContainer progress {
   width: 100% !important;
 }
+
+.dzu-inputLabelWithFiles {
+  background-color: transparent !important;
+}
+
+.dzu-submitButton[disabled] {
+  display: none !important;
+}

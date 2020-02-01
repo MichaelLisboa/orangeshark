@@ -28,7 +28,7 @@ const mediaOptions = [
     {type: 'text', label: 'Text', image: text, color: "#F1B844"},
 ]
 
-const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDragActive, setAdNetwork, adNetwork, setMediaType, mediaType, serverError, ...props}) => {
+const CampaignForm = ({media, setMedia, setAdNetwork, adNetwork, setMediaType, mediaType, ...props}) => {
 
     // specify upload params and url for your files
     const getUploadParams = async ({file, meta }) => {
@@ -52,9 +52,8 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
     const handleChangeStatus = (fileWithMeta, status) => {
         const endpoint = MediaUrls.IMAGE_LIST;
         const token = localStorage.getItem("token");
+        const i = [];
         if (status === 'done') {
-            const response = JSON.parse(fileWithMeta.xhr.response);
-            console.log("SUCCESS", response, status);
             return axios({
                 method: "GET",
                 url: endpoint,
@@ -63,7 +62,10 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
                 }
             })
             .then((response) => {
-                console.log("LIST IMAGES", response)
+                console.log("LIST IMAGES", fileWithMeta.xhr.response)
+                const images = JSON.parse(fileWithMeta.xhr.response).image_name;
+                i.push(images)
+                setMedia(i)
                 // history.push(`/campaign/${response.data.id}`);
             })
         } else if (status === 'error_upload') {
@@ -73,8 +75,11 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
     }
 
     // receives array of files that are done uploading when submit button is clicked
-    const handleUpload = (files, allFiles) => {
-        console.log("FILES AFTER UPLOAD", files.map(f => f.meta))
+    const handleUpload = (uploads, allFiles) => {
+        console.log("UPLOADS", uploads)
+        console.log("ALL FILES", allFiles)
+        console.log("FILES AFTER UPLOAD", uploads.map(f => f.meta.name))
+        // setMedia(uploads.map(f => f.meta.name))
         allFiles.forEach(f => f.remove())
     }
 
@@ -374,7 +379,7 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
                             onChangeStatus={handleChangeStatus}
                             onSubmit={handleUpload}
                             accept="image/*,video/*"
-                            submitButtonContent="Upload files"
+                            submitButtonContent="Save"
                         />
                     </WizardStep>
                 </Wizard>

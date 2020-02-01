@@ -17,18 +17,18 @@ const OffCanvas = () => {
                     </li>
                     }
                     <li>
-                        <NavLink data-uk-toggle="target: #offcanvas-nav" to={`/report`}>
-                            Cannabis Report
+                        <NavLink data-uk-toggle="target: #offcanvas-nav" to={`/campaigns`}>
+                            My Campaigns
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink data-uk-toggle="target: #offcanvas-nav" to={`/blog`}>
-                            Articles
+                        <NavLink data-uk-toggle="target: #offcanvas-nav" to={`/media`}>
+                            My Media
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink data-uk-toggle="target: #offcanvas-nav" to={`/contact`}>
-                            Contact
+                        <NavLink data-uk-toggle="target: #offcanvas-nav" to={`/logout`}>
+                            Logout
                         </NavLink>
                     </li>
                 </ul>
