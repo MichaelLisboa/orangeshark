@@ -22,7 +22,7 @@ const getSchema = () => Yup.object().shape({
         .required('This field is required.'),
     languages: Yup.string()
         .required('This field is required.'),
-    dispaly_links: Yup.string()
+    display_links: Yup.string()
         .required('This field is required.'),
     target_urls: Yup.string()
         .required('This field is required.'),
@@ -61,7 +61,7 @@ const Create = props => {
             });
 
             return () => console.log("CLEANUP")
-        }, [serverError]
+        }, [serverError, token]
     )
 
     useEffect(
@@ -110,7 +110,7 @@ const Create = props => {
             age_groups: [formData.age_groups],
             gender: [formData.gender],
             languages: [formData.languages],
-            dispaly_links: [formData.dispaly_links],
+            display_links: [formData.display_links],
             target_urls: [formData.target_urls],
             link_desc: [formData.link_desc]
         };
@@ -147,7 +147,7 @@ const Create = props => {
                 age_groups: [],
                 gender: [],
                 languages: [],
-                dispaly_links: [],
+                display_links: [],
                 target_urls: [],
                 link_desc: [],
                 ad_network: adNetwork,

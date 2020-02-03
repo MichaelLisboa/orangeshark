@@ -23,6 +23,9 @@ import Create from "../Campaigns/Create";
 import View from "../Campaigns/View";
 import List from "../Campaigns/List";
 
+import Media from "../Media";
+import MediaDetail from "../Media/Detail";
+
 import Stage from "../Stage";
 
 const AppRoutes = props => {
@@ -41,6 +44,10 @@ const AppRoutes = props => {
             <ProtectedRoute path="/campaigns" component={(Campaigns)} />
             <ProtectedRoute exact path="/campaign/create" component={(Create)} />
             <ProtectedRoute path="/campaign/:id" component={(View)} />
+
+            <ProtectedRoute path="/media" component={(Media)} />
+            <ProtectedRoute path="/media/:id" component={(MediaDetail)} />
+
             <ProtectedRoute path="/design" component={Stage} />
 
             <ScrollToTopRoute path="/" component={(Home)} />

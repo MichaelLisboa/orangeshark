@@ -28,14 +28,15 @@ const mediaOptions = [
     {type: 'text', label: 'Text', image: text, color: "#F1B844"},
 ]
 
-const CampaignForm = ({media, setMedia, setAdNetwork, adNetwork, setMediaType, mediaType, ...props}) => {
+const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDragActive, setAdNetwork, adNetwork, setMediaType, mediaType, serverError, ...props}) => {
 
     // specify upload params and url for your files
     const getUploadParams = async ({file, meta }) => {
         const endpoint = MediaUrls.IMAGE_UPLOAD;
         const token = localStorage.getItem("token");
+        console.log("IMAGE UPLOAD", file);
         const body = new FormData();
-        body.append('image_file', file);
+        body.append('image_files', file);
 
         const postData = {
             url: endpoint,
@@ -43,17 +44,19 @@ const CampaignForm = ({media, setMedia, setAdNetwork, adNetwork, setMediaType, m
             headers: {
                 Authorization: `Bearer ${token}`
             },
-            meta: {image_file: file.name}
+            meta: {image_files: file.name}
         }
 
+        console.log(postData)
         return postData
     }
 
     const handleChangeStatus = (fileWithMeta, status) => {
         const endpoint = MediaUrls.IMAGE_LIST;
         const token = localStorage.getItem("token");
-        const i = [];
         if (status === 'done') {
+            const response = JSON.parse(fileWithMeta.xhr.response);
+            console.log(response, status);
             return axios({
                 method: "GET",
                 url: endpoint,
@@ -62,10 +65,7 @@ const CampaignForm = ({media, setMedia, setAdNetwork, adNetwork, setMediaType, m
                 }
             })
             .then((response) => {
-                console.log("LIST IMAGES", fileWithMeta.xhr.response)
-                const images = JSON.parse(fileWithMeta.xhr.response).image_name;
-                i.push(images)
-                setMedia(i)
+                console.log("LIST IMAGES", response)
                 // history.push(`/campaign/${response.data.id}`);
             })
         } else if (status === 'error_upload') {
@@ -75,11 +75,8 @@ const CampaignForm = ({media, setMedia, setAdNetwork, adNetwork, setMediaType, m
     }
 
     // receives array of files that are done uploading when submit button is clicked
-    const handleUpload = (uploads, allFiles) => {
-        console.log("UPLOADS", uploads)
-        console.log("ALL FILES", allFiles)
-        console.log("FILES AFTER UPLOAD", uploads.map(f => f.meta.name))
-        // setMedia(uploads.map(f => f.meta.name))
+    const handleUpload = (files, allFiles) => {
+        // console.log(files.map(f => f.meta))
         allFiles.forEach(f => f.remove())
     }
 
@@ -371,7 +368,7 @@ const CampaignForm = ({media, setMedia, setAdNetwork, adNetwork, setMediaType, m
                     </WizardStep>
 
                     <WizardStep>
-                        <div className="uk-h4">
+                        <div className="uk-card-header">
                             Upload files
                         </div>
                         <Dropzone
@@ -379,7 +376,7 @@ const CampaignForm = ({media, setMedia, setAdNetwork, adNetwork, setMediaType, m
                             onChangeStatus={handleChangeStatus}
                             onSubmit={handleUpload}
                             accept="image/*,video/*"
-                            submitButtonContent="Save"
+                            submitButtonContent="Upload files"
                         />
                     </WizardStep>
                 </Wizard>
