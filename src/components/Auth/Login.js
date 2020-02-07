@@ -25,7 +25,7 @@ const Login = props =>  {
         () => {
             if(token) history.push("/campaigns");
             return () => console.log("CLEANUP")
-        }, [token]
+        }, []
     )
 
     useEffect(
