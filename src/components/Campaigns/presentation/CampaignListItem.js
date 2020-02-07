@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import "../Campaigns.css";
-
 import trash from "../../../images/Icons/Trash.png";
 import viewed from "../../../images/Icons/View.png";
 
@@ -14,11 +12,11 @@ import image from "../../../images/Icons/Image.png";
 import video from "../../../images/Icons/Video.png";
 import text from "../../../images/Icons/Text.png";
 
-import pending from "../../../images/Icons/Hate.png";
+import declined from "../../../images/Icons/Hate.png";
 import requested from "../../../images/Icons/Accepted.png";
 import active from "../../../images/Icons/Working.png";
 import closed from "../../../images/Icons/Finish.png";
-import canceled from "../../../images/Icons/Danger.png";
+import danger from "../../../images/Icons/Danger.png";
 
 const getAdFormat = val => {
     let format = {}
@@ -57,7 +55,7 @@ const getStatus = val => {
             icon = closed
             break
         default:
-            icon = pending
+            icon = requested
     }
 
     const status = () =>
