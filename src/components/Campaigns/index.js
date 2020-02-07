@@ -6,6 +6,8 @@ import { CampaignUrls } from "../../constants/Urls";
 import List from "./List";
 import Create from "./Create";
 
+import "./Campaigns.css";
+
 async function getCampaigns(token, page) {
     const endpoint = `${CampaignUrls.DEFAULT}`;
     const result = await axios.get(endpoint, {

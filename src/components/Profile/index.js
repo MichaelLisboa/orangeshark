@@ -5,19 +5,15 @@ import ProfileCard from "./presentation/ProfileCard";
 import Dashboard from "../Dashboard";
 
 const Profile = props => {
-    const [user,, token,] = useContext(UserContext);
+    const [token, setToken] = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(
         () => {
-            if(token && user) {
-                if (user && user.profile && !user.profile.bio) {
-                    history.push(`/profile/edit/${user.id}`)
-                } else {
-                    setIsLoading(false);
-                }
+            if(token) {
+                setIsLoading(false);
             }
-        }, [token, user]
+        }, [token]
     );
 
     if(isLoading) {
@@ -33,12 +29,12 @@ const Profile = props => {
                 <div data-uk-grid>
                     <div className="uk-width-large@m">
                         <div className="uk-container">
-                            <ProfileCard user={user} />
+                            MONKEY
                         </div>
                     </div>
                     <div className="uk-width-expand">
                         <div className="uk-container">
-                            <Dashboard user={user} />
+                            <Dashboard />
                         </div>
                     </div>
                 </div>
