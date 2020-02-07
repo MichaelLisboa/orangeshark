@@ -6,8 +6,6 @@ import { CampaignUrls } from "../../constants/Urls";
 import List from "./List";
 import Create from "./Create";
 
-import Data from "../Dashboard/Data";
-
 async function getCampaigns(token) {
     const endpoint = `${CampaignUrls.DEFAULT}`;
     const result = await axios.get(endpoint, {
@@ -16,52 +14,73 @@ async function getCampaigns(token) {
             }
         })
     const res = await result.data;
-    // const res = await Data
     return res;
 }
 
 const Campaigns = props => {
     const [token, setToken] = useContext(UserContext);
-    const [campaigns, setPosts] = useState({});
+    const [campaigns, setCampaigns] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-
     useEffect(
         () => {
-            console.log("CAMPAIGN TOKEN", token)
             getCampaigns(token)
             .then(response => {
-                setPosts(response)
-                setIsLoading(false)
+                console.log("CAMPAIGN RESPOONSE", response)
+                setCampaigns(response.results);
+                setIsLoading(false);
+                console.log("CHECK TOKEN", token.length)
             })
             .catch(err => {
-                console.log("GET CAMPAIGNS ERROR", err.message)
+                localStorage.removeItem("token");
                 setToken();
+                // setIsLoading(true);
+                console.log("GET CAMPAIGNS ERROR", token);
             })
-        }, []
+        }, [setToken, token]
     )
 
     if (isLoading) {
         return (
             <>
-            <div />
+            <div>Loading</div>
             </>
         )
     }
-    console.log("POSTS", campaigns)
+
     return (
         <>
         {campaigns.length ?
             <>
                 <section className="uk-section">
-                    <List isLoading={isLoading} campaigns={campaigns} />
-                    <div className="uk-margin-large">
+                    <div className="uk-container uk-container-small">
+                        <div className="uk-grid-collapse uk-child-width-1-2" data-uk-grid>
+                        <div>
+                        <h2>Campaigns</h2>
+                        </div>
+                        <div className="uk-text-right">
                         <Link
                             to="/campaign/create"
-                            className="uk-button uk-button-default">
+                            className="uk-button uk-button-primary">
                             New Campaign
                         </Link>
+                        </div>
+                        </div>
+                        <table className="campaign-table uk-table uk-table-large uk-table-hover uk-table-striped uk-table-expand">
+                            <caption></caption>
+                            <thead>
+                                <tr className="uk-table-middle">
+                                    <th>Campaign Name</th>
+                                    <th className="uk-text-center">Platform</th>
+                                    <th className="uk-text-center uk-text-nowrap">Format</th>
+                                    <th className="uk-text-center">Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <List isLoading={isLoading} campaigns={campaigns} />
+                            </tbody>
+                        </table>
                     </div>
-
                 </section>
             </>
             :

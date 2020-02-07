@@ -14,38 +14,11 @@ span.uk-text-truncate {
   color: rgba(86, 165, 218, 1) !important;
 }
 
-a.bid-buy-button {
-  font-size: 10px !important;
-  padding: 0 8px !important;
-  border-radius: 4px !important;
-}
-
-a.bid-buy-button:hover {
-  border-color: rgba(86, 165, 218, 1) !important;
-}
-
-.brand-text-color,
-.uk-card a {
-  color: rgba(86, 165, 218, 1) !important;
-  text-decoration: none !important;
-}
-
-a.uk-icon-link {
-  text-decoration: none;
-}
 
 a.uk-button-brand {
   background-color: rgba(86, 165, 218, 1) !important;
   color: #fff !important;
   border: 1px solid rgba(86, 165, 218, 1);
-}
-
-.uk-card-footer * {
-  font-size: 9px !important;
-}
-
-.uk-logo {
-  font-size: 16px;
 }
 
 #site-head {
@@ -78,8 +51,11 @@ a.uk-button-brand {
   padding: 0.55rem 1rem;
 }
 
+.uk-card.selected-card {
+  border: 2px solid rgba(140, 185, 84, 1) !important;
+}
+
 .uk-card .uk-card-header {
-  border-top: 4px solid rgba(86, 165, 218, 1) !important;
   padding: 0.55rem 1rem;
 }
 
@@ -87,38 +63,10 @@ a.uk-button-brand {
   color: rgba(86, 165, 218, 1);
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 0.75rem;
+  /* font-size: 0.75rem; */
   letter-spacing: 0.01em;
 }
 
-ul.uk-subnav-pill {
-  margin-top: 2px !important;
-}
-
-ul {
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-.uk-subnav li a {
-  font-size: 14px !important;
-  margin: 5px 0;
-}
-
-.uk-subnav-pill .uk-active a {
-  background-color: transparent !important;
-  color: rgba(86, 165, 218, 1);
-  border-radius: 0;
-  /* border-bottom: 1px solid rgba(86, 165, 218, 1); */
-}
-
-.uk-subnav li {
-  text-transform: uppercase;
-}
-
-.uk-subnav li.uk-active a {
-  background-color: rgba(86, 165, 218, 1);
-}
 
 td.changeActive {
   color      : #66bb6a;
@@ -147,7 +95,7 @@ td.changeDefault {
 .uk-card .uk-overlay-primary {
   padding: 0.5rem;
   text-align: center;
-  font-size: 0.7rem;
+  /* font-size: 0.7rem; */
   text-transform: uppercase;
   opacity: 0.7;
 }
@@ -212,7 +160,7 @@ img[data-src][src*='data:image'] {
 }
 
 .message {
-  font-size: 0.85rem;
+  /* font-size: 0.85rem; */
   display: block;
   line-height: 1.3rem;
   padding: 0.5rem 0;
@@ -220,7 +168,7 @@ img[data-src][src*='data:image'] {
 
 @media (max-width: 640px) {
   table td {
-    font-size: 10px !important;
+    /* font-size: 10px !important; */
   }
 
   table td img {
@@ -233,7 +181,7 @@ img[data-src][src*='data:image'] {
 
   .uk-card-header * {
     padding: 0 2px !important;
-    font-size: 9px !important;
+    /* font-size: 9px !important; */
   }
 
   .uk-card-header small {
@@ -242,14 +190,14 @@ img[data-src][src*='data:image'] {
   }
 
   a.bid-buy-button {
-    font-size: 9px !important;
+    /* font-size: 9px !important; */
     padding: 5px !important;
     line-height: 9px !important;
     margin: 0 !important;
   }
 
   .uk-card-footer * {
-    font-size: 8px !important;
+    /* font-size: 8px !important; */
   }
 
   .uk-card-footer span.uk-icon {

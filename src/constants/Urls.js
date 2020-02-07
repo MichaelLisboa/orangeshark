@@ -12,6 +12,7 @@ export const AuthUrls = {
 
 export const CampaignUrls = {
     DEFAULT: `${ROOT_URL}/campaigns/`,
+    DETAIL: `${ROOT_URL}/campaigns/`,
     CREATE_FB_CAROUSEL_IMAGE: `${ROOT_URL}/campaigns/create/fb/rhs/carousel/image/`,
     CREATE_FB_CAROUSEL_VIDEO: `${ROOT_URL}/campaigns/create/fb/rhs/carousel/video/`,
     CREATE_FB_SINGLE_IMAGE: `${ROOT_URL}/campaigns/create/fb/rhs/single/image/`,

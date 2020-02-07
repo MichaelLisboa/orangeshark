@@ -71,3 +71,15 @@
 .dzu-submitButton[disabled] {
   display: none !important;
 }
+
+.uk-table tbody tr {
+  transition: background-color .25s linear;
+}
+
+.uk-table-hover tbody tr:hover {
+  background-color: rgba(86, 165, 218, 0.15);
+}
+
+.campaign-table small {
+  font-size: 11px;
+}

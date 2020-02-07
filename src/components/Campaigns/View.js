@@ -5,26 +5,29 @@ import { CampaignUrls } from "../../constants/Urls";
 import CampaignDetailItem from "./presentation/CampaignDetailItem";
 
 async function getCampaign(id, token) {
-    const endpoint = `${CampaignUrls.DEFAULT}${id}`;
+    const endpoint = `${CampaignUrls.DETAIL}${id}`;
     const result = await axios.get(endpoint, {
             headers: {
-                authorization: `Token ${token}`
+                Authorization: `Bearer ${token}`
             }
         })
     const res = await result.data;
+    console.log("GET CAMPAIGN RESPONSE", res)
     return res;
 }
 
 const View = props => {
-    const [,, token,] = useContext(UserContext);
+    const [token, setToken] = useContext(UserContext);
     const [campaign, setCampaign] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(
         () => {
             const id = props.match.params.id;
+            console.log("THE CAMPAIGN ID", id)
             getCampaign(id, token)
             .then(response => {
+                console.log("GET CAMPAIGN", response)
                 setCampaign(response);
                 setIsLoading(false);
             })

@@ -54,7 +54,6 @@ const Create = props => {
                 })
             .then((response) => {
                 console.log("CREATE CAMPAIGN RESPONSE", response)
-                // history.push(`/campaign/${response.data.id}`);
             })
             .catch((error) => {
                 console.log("BIG ERROR", error);
@@ -98,24 +97,26 @@ const Create = props => {
         const root_url = "https://app.orangeshark.xyz/campaigns/create/";
         // const root_url = "http://127.0.0.1:3000/campaigns/create/";
         const network = adNetwork === 'google' ? "google/ads/" : "fb/rhs/";
-        console.log("FORM DATA", formData, adNetwork, mediaType, media)
         const endpoint = root_url + network + getEndpoint();
         const token = localStorage.getItem("token");
+
+        const splitList = (entry) => {
+            return entry.split(",").map(item => item.trim());
+        }
+
         const body = {
             campaign_name: formData.campaign_name,
             images: media,
-            headlines: [formData.headlines],
-            ad_text: [formData.ad_text],
-            keywords: [formData.keywords],
-            age_groups: [formData.age_groups],
-            gender: [formData.gender],
-            languages: [formData.languages],
-            display_links: [formData.display_links],
-            target_urls: [formData.target_urls],
-            link_desc: [formData.link_desc]
+            headlines: splitList(formData.headlines),
+            ad_text: splitList(formData.ad_text),
+            keywords: splitList(formData.keywords),
+            age_groups: splitList(formData.age_groups),
+            gender: splitList(formData.gender),
+            languages: splitList(formData.languages),
+            display_links: splitList(formData.display_links),
+            target_urls: splitList(formData.target_urls),
+            link_desc: splitList(formData.link_desc)
         };
-
-        console.log("SUBMIT BODY", JSON.stringify(body))
 
         if (token) {
             return axios({
@@ -128,13 +129,15 @@ const Create = props => {
             })
             .then((response) => {
                 console.log("CREATE CAMPAIGN RESPONSE", response)
-                // history.push(`/campaign/${response.data.id}`);
+                history.push(`/campaign/${response.data.id}`);
             })
             .catch((error) => {
                 console.log("BIG ERROR", error.message);
             });
         }
     }
+
+    console.log("THE MEDIA", media)
 
     return (
         <Formik

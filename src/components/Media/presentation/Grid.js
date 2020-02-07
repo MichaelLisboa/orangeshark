@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { UserContext } from "../../Contexts/UserContext";
 import axios from "axios";
 import { compose } from 'recompose';
 import MediaListItem from "./MediaListItem";
+import Sidebar from "./Sidebar";
 
 const RootUrl = "https://app.orangeshark.xyz"
 
 const getMarketWatchUrl = (page) => `${RootUrl}/user/images?page=${page}`;
-
-console.log(getMarketWatchUrl(1))
 
 const applyUpdateResult = (result, page) => (prevState) => {
     const filteredList = result.results.filter(({ id: id1 }) => !prevState.media.some(({ id: id2 }) => id2 === id1));
@@ -23,12 +22,16 @@ const applyUpdateResult = (result, page) => (prevState) => {
     return updatedPosts;
 }
 
-const applySetResult = (result, page) => (prevState) => ({
-    media: result.results,
-    page: page + 1,
-    next: result.next,
-    isLoading: false,
-})
+const applySetResult = (result, page) => (prevState) => {
+    const applyPosts = {
+        media: result.results,
+        page: page + 1,
+        next: result.next,
+        isLoading: false,
+    }
+
+    return applyPosts;
+}
 
 const withLoading = (Component) => (props) =>
     <>
@@ -64,6 +67,37 @@ const withInfiniteScroll = (Component) =>
     }
 }
 
+const i = [];
+
+const MediaGrid = ({ post, page, next, isLoading, onPaginatedSearch }) => {
+    const [selected, setSelected] = useState([]);
+    const [selectMedia, setSelectMedia] = useState(false);
+    const toggle = () => {
+        setSelectMedia(!selectMedia);
+        !selectMedia && Object.keys(i).forEach(k => delete i[k])
+        // selectMedia ? setSelected(i) : setSelected([])
+    }
+
+    const selectedItems = item => {
+        i.push(item);
+        setSelected(i);
+    }
+
+    useEffect(
+        () => {
+            console.log("SELECTED", selected)
+        }, [selected, setSelected, i]
+    )
+
+    return (
+        <>
+        <Sidebar toggle={toggle} selectMedia={selectMedia} setSelectMedia={setSelectMedia} selectedItems={selected} />
+        <div id="content" data-uk-height-viewport="expand: true">
+            <MediaListItem post={post} selectMedia={selectMedia} selectedItems={selectedItems} />
+        </div>
+    </>
+)}
+
 class GridContent extends Component {
 
     constructor (props) {
@@ -76,16 +110,13 @@ class GridContent extends Component {
         };
     }
 
-    onInitialSearch = (e) =>
-        this.fetchPosts(1);
-
     onPaginatedSearch = (e) =>
         this.fetchPosts(this.state.page);
 
     fetchPosts = page => {
         const token = localStorage.getItem("token");
         const endpoint = getMarketWatchUrl(page);
-        console.log(endpoint)
+
         this.setState({ isLoading: true });
         axios.get(endpoint, {
                 headers: {
@@ -93,9 +124,7 @@ class GridContent extends Component {
                 }
             })
         .then((response) => {
-            console.log("CREATE CAMPAIGN RESPONSE", page)
             this.onSetResult(response.data, page)
-            // history.push(`/campaign/${response.data.id}`);
         })
         .catch((error) => {
             console.log("BIG ERROR", error);
@@ -139,6 +168,6 @@ class GridContent extends Component {
 const PostListWithLoadingWithInfinite = compose(
     withInfiniteScroll,
     withLoading,
-)(MediaListItem);
+)(MediaGrid);
 
 export default GridContent;

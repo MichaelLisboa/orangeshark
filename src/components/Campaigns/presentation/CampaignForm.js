@@ -28,15 +28,15 @@ const mediaOptions = [
     {type: 'text', label: 'Text', image: text, color: "#F1B844"},
 ]
 
-const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDragActive, setAdNetwork, adNetwork, setMediaType, mediaType, serverError, ...props}) => {
+const i = [];
 
+const CampaignForm = ({media, setMedia, setAdNetwork, adNetwork, setMediaType, mediaType, serverError, ...props}) => {
     // specify upload params and url for your files
     const getUploadParams = async ({file, meta }) => {
         const endpoint = MediaUrls.IMAGE_UPLOAD;
         const token = localStorage.getItem("token");
-        console.log("IMAGE UPLOAD", file);
         const body = new FormData();
-        body.append('image_files', file);
+        body.append('image_file', file);
 
         const postData = {
             url: endpoint,
@@ -44,10 +44,8 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
             headers: {
                 Authorization: `Bearer ${token}`
             },
-            meta: {image_files: file.name}
+            meta: {image_file: file.name}
         }
-
-        console.log(postData)
         return postData
     }
 
@@ -56,18 +54,19 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
         const token = localStorage.getItem("token");
         if (status === 'done') {
             const response = JSON.parse(fileWithMeta.xhr.response);
-            console.log(response, status);
-            return axios({
-                method: "GET",
-                url: endpoint,
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            .then((response) => {
-                console.log("LIST IMAGES", response)
-                // history.push(`/campaign/${response.data.id}`);
-            })
+            i.push(response.image_name);
+            setMedia(i);
+            // return axios({
+            //     method: "GET",
+            //     url: endpoint,
+            //     headers: {
+            //         Authorization: `Bearer ${token}`
+            //     }
+            // })
+            // .then((response) => {
+            //     console.log("LIST IMAGES", response)
+            //     // history.push(`/campaign/${response.data.id}`);
+            // })
         } else if (status === 'error_upload') {
             // You can play around with fileWithMeta.xhr here and should work.
             console.log("ERROR", fileWithMeta.xhr.responseText)
@@ -315,17 +314,17 @@ const CampaignForm = ({onDrop, acceptedFiles, getRootProps, getInputProps, isDra
                         <div className="uk-margin">
                             <p className="uk-text-small uk-text-muted uk-margin-small-bottom">
                                 Display links
-                                {props.errors.dispaly_links && props.touched.dispaly_links &&
-                                    <small className="uk-display-inline-block uk-text-danger uk-margin-small-left">{props.errors.dispaly_links}</small>
+                                {props.errors.display_links && props.touched.display_links &&
+                                    <small className="uk-display-inline-block uk-text-danger uk-margin-small-left">{props.errors.display_links}</small>
                                 }
                             </p>
                             <Field
-                                value={props.values.dispaly_links}
+                                value={props.values.display_links}
                                 component="input"
-                                name="dispaly_links"
+                                name="display_links"
                                 label="Display links"
                                 placeholder="Display links"
-                                className={`uk-input uk-form-large ${props.errors.dispaly_links && props.touched.dispaly_links ? "uk-form-danger" : null}`}
+                                className={`uk-input uk-form-large ${props.errors.display_links && props.touched.display_links ? "uk-form-danger" : null}`}
                                 required
                             />
                         </div>
