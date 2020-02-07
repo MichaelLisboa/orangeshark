@@ -23,32 +23,39 @@ const List = ({next, setNext, isLoading, campaigns}) => {
             !isFetching &&
             next !== null
         ) {
+            console.log('Fetch more list items!', next);
             setIsFetching(true);
         }
+    }
+
+    function fetchMoreListItems() {
+        getNextCampaigns(localStorage.token, next)
+            .then(response => {
+                console.log("NEXT SET", response.next)
+                setNext(response.next);
+                setListItems(prevState => ([...prevState, ...response.results]));
+            })
+            .catch(err => {
+                localStorage.removeItem("token");
+            })
+            setTimeout(() => {
+                setIsFetching(false);
+                console.log("NEXT?", next)
+            }, 2000)
     }
 
     useEffect(
         () => {
             window.addEventListener('scroll', handleScroll);
             return () => window.removeEventListener('scroll', handleScroll);
-        }, []
+        }, [handleScroll]
     );
 
     useEffect(
         () => {
             if (!isFetching) return;
-            getNextCampaigns(localStorage.token, next)
-                .then(response => {
-                    setNext(response.next);
-                    setListItems(prevState => ([...prevState, ...response.results]));
-                })
-                .catch(err => {
-                    localStorage.removeItem("token");
-                })
-                setTimeout(() => {
-                    setIsFetching(false);
-                }, 2000)
-        }, [isFetching, next, setNext]
+            fetchMoreListItems();
+        }, [isFetching]
     );
 
     if (isLoading) {

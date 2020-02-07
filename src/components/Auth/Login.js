@@ -23,39 +23,35 @@ const Login = props =>  {
 
     useEffect(
         () => {
-            if(token) history.push("/campaigns");
+            if(!token) return;
+            history.push("/campaigns");
             return () => console.log("CLEANUP")
-        }, []
-    )
-
-    useEffect(
-        () => {
-            return () => console.log("CLEANUP")
-        }, [serverError]
+        }, [token]
     )
 
     const handleSubmit = data => {
         const endpoint = `${AuthUrls.LOGIN}`
         const body = {
-                username: data.username,
-                password: data.password,
-            };
+            username: data.username,
+            password: data.password,
+        };
 
         return axios.post(endpoint, body)
-        .then((response) => {
-            const res = response.data;
-            setToken(res.access);
-            localStorage.setItem("token", res.access);
-            localStorage.setItem("refresh", res.refresh);
-        })
-        .catch((err) => {
-            let errors = [];
-            try {
-                Object.values(err.response.data).map(e => errors.push(...e));
-            } catch {
-                errors = ["There was an error."]
-            }
-            setServerError(errors);
+            .then((response) => {
+                console.log("LOGIN RESPONSE", response)
+                const res = response.data;
+                setToken(res.access);
+                localStorage.setItem("token", res.access);
+                localStorage.setItem("refresh", res.refresh);
+            })
+            .catch((err) => {
+                let errors = [];
+                try {
+                    Object.values(err.response.data).map(e => errors.push(...e));
+                } catch {
+                    errors = ["There was an error."]
+                }
+                setServerError(errors);
         });
     }
 
