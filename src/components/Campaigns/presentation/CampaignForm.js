@@ -172,6 +172,20 @@ const CampaignForm = ({media, setMedia, setAdNetwork, adNetwork, setMediaType, m
                             />
                         </div>
                     </WizardStep>
+
+                    <WizardStep>
+                        <div className="uk-card-header">
+                            Upload files
+                        </div>
+                        <Dropzone
+                            getUploadParams={getUploadParams}
+                            onChangeStatus={handleChangeStatus}
+                            onSubmit={handleUpload}
+                            accept="image/*,video/*"
+                            submitButtonDisabled="true"
+                        />
+                    </WizardStep>
+
                     <WizardStep>
                         <div className="uk-h4">
                             Campaign Details
@@ -193,6 +207,7 @@ const CampaignForm = ({media, setMedia, setAdNetwork, adNetwork, setMediaType, m
                                 required
                             />
                         </div>
+                        
                         <div className="uk-margin">
                             <p className="uk-text-small uk-text-muted uk-margin-small-bottom">
                                 Headlines
@@ -364,19 +379,6 @@ const CampaignForm = ({media, setMedia, setAdNetwork, adNetwork, setMediaType, m
                                 required
                             />
                         </div>
-                    </WizardStep>
-
-                    <WizardStep>
-                        <div className="uk-card-header">
-                            Upload files
-                        </div>
-                        <Dropzone
-                            getUploadParams={getUploadParams}
-                            onChangeStatus={handleChangeStatus}
-                            onSubmit={handleUpload}
-                            accept="image/*,video/*"
-                            submitButtonContent="Upload files"
-                        />
                     </WizardStep>
                 </Wizard>
             </fieldset>

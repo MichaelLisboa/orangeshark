@@ -21,6 +21,26 @@ a.uk-button-brand {
   border: 1px solid rgba(86, 165, 218, 1);
 }
 
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* or space-around */
+}
+
+.image-grid > a {
+  display: inline-block;
+  margin-bottom: 8px;
+  width: calc(20% - 6px);
+  max-height: 120px;
+  overflow: hidden;
+}
+
+.image-grid img {
+  height: 120px;
+  width: 100%;
+  object-fit: cover;
+}
+
 #site-head {
   padding: 10px 0;
   position: fixed;
@@ -48,7 +68,8 @@ a.uk-button-brand {
 }
 
 .uk-card .uk-card-footer {
-  padding: 0.55rem 1rem;
+  padding: 0.75rem 1rem;
+  border-style: none;
 }
 
 .uk-card.selected-card {

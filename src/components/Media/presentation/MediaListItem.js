@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
-
 import trash from "../../../images/Icons/Trash.png";
 
 const i = [];
@@ -16,7 +14,7 @@ const MediaListItem = ({post, selectMedia, selectedItems}) => {
                     key={item.id}
                     >
                     <div
-                        className={`uk-card uk-card-small uk-card-grey uk-box-shadow-medium uk-box-shadow-hover-large ${i.includes(item.image_name) ? "selected-card" : "default-card"}`}>
+                        className={`uk-card uk-card-small ${i.includes(item.image_name) ? "selected-card" : "default-card"}`}>
                         {selectMedia &&
                         <div className="uk-card-header">
                             <div className="uk-grid uk-grid-small uk-text-small" data-uk-grid>
@@ -36,11 +34,17 @@ const MediaListItem = ({post, selectMedia, selectedItems}) => {
                             </div>
                         </div>
                         }
-                        <div className="uk-card-media-top">
-                            <img
-                                src={`https://app.orangeshark.xyz/custom_images/${item.image_name}`}
-                                alt={item.image_display_name}
-                                />
+                        <div className="uk-card-media-top" data-uk-lightbox="animation: fade">
+                            <a
+                                href={`https://app.orangeshark.xyz/custom_images/${item.image_name}`}
+                                data-alt={item.image_display_name}
+                                data-caption={item.image_display_name}
+                            >
+                                <img
+                                    src={`https://app.orangeshark.xyz/custom_images/${item.image_name}`}
+                                    alt={item.image_display_name}
+                                    />
+                            </a>
                         </div>
                     </div>
                 </div>
