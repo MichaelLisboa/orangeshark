@@ -25,7 +25,6 @@ const SubmitButton = ({formProps}) => {
         <button
             type="submit"
             className="uk-button uk-button-large uk-button-default"
-            disabled={formProps.isSubmitting || !formProps.isValid}
             >
             Submit
         </button>

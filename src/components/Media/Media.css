@@ -31,7 +31,6 @@ a.uk-button-brand {
   display: inline-block;
   margin-bottom: 8px;
   width: calc(20% - 6px);
-  max-height: 120px;
   overflow: hidden;
 }
 

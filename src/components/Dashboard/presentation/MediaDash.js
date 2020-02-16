@@ -34,12 +34,6 @@ const MediaDash = props => {
         }, []
     )
 
-    if (isLoading) {
-        return (
-            <div />
-        )
-    }
-
     return (
         <div className="uk-margin-xlarge-bottom">
             <div className="uk-grid-collapse uk-padding-small uk-padding-remove-bottom uk-margin-small-bottom uk-margin-large-top" data-uk-grid>
@@ -48,7 +42,12 @@ const MediaDash = props => {
                 </div>
             </div>
             <div className="uk-card uk-card-default uk-card-small">
-                <div className="uk-card-body">
+                <div style={{height: "250px"}} className="uk-card-body">
+                {isLoading ?
+                    <div className="uk-height-1-1 uk-flex uk-flex-middle uk-flex-center">
+                        <div data-uk-spinner></div>
+                    </div>
+                :
                     <div className="image-grid" data-uk-lightbox="animation: fade">
                     {media.map((item, index) =>
                         <a
@@ -64,6 +63,7 @@ const MediaDash = props => {
                         </a>
                     )}
                     </div>
+                }
                 </div>
                 <div className="uk-card-footer">
                     <Link className="uk-button uk-button-large uk-button-primary" to="/media">See all media</Link>

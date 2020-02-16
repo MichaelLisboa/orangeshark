@@ -37,14 +37,16 @@ const Media = props => {
 
     if (isLoading) {
         return (
-            <>
-            <div>Loading</div>
-            </>
+            <div className="uk-flex uk-flex-center uk-flex-middle uk-flex-column" data-uk-height-viewport="offset-top: true; offset-bottom: 8">
+                <div data-uk-spinner="ratio: 2"></div>
+            </div>
         )
     }
 
     return (
+        <div  data-uk-height-viewport="offset-top: true; offset-bottom: 8">
         <GridContent />
+        </div>
     );
 }
 

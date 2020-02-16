@@ -79,10 +79,10 @@ const gigStatus = gig => {
     const s = () =>
         <>
         <td className="uk-table-expand uk-table-middle uk-text-truncate">
-            <p className="uk-text-truncate">
-            <Link className="uk-link-reset uk-link-text" to={`/campaign/${gig.id}`}>
-                <span>{gig.campaign_name}</span>
-            </Link>
+            <p>
+                <Link className="uk-link-reset uk-link-text" to={`/campaign/${gig.id}`}>
+                    <span>{gig.campaign_name}</span>
+                </Link>
             </p>
         </td>
         <td className="uk-preserve-width uk-text-right">
@@ -144,12 +144,6 @@ const CampaignsDash = props => {
         }, []
     )
 
-    if (isLoading) {
-        return (
-            <div />
-        )
-    }
-
     return (
         <>
             <div className="uk-grid-collapse uk-padding-small uk-padding-remove-bottom uk-margin-small-bottom" data-uk-grid>
@@ -167,10 +161,15 @@ const CampaignsDash = props => {
                 </div>
             </div>
             <div className="uk-card uk-card-default uk-card-small">
-                <div className="uk-card-body">
+                <div style={{height: "300px"}} className="uk-card-body">
+                    {isLoading ?
+                        <div className="uk-height-1-1 uk-flex uk-flex-middle uk-flex-center">
+                            <div data-uk-spinner></div>
+                        </div>
+                    :
                     <table className="uk-table uk-table-divider uk-table-justify uk-table-middle">
                         <tbody>
-                        {campaigns
+                        {!isLoading && campaigns
                         .slice(0, 5)
                         .map((gig, id) => {
                             return (
@@ -181,6 +180,7 @@ const CampaignsDash = props => {
                         })}
                         </tbody>
                     </table>
+                    }
                 </div>
                 <div className="uk-card-footer">
                     <Link className="uk-button uk-button-large uk-button-primary" to="/campaigns">See all campaigns</Link>

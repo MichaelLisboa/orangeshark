@@ -46,7 +46,7 @@ const UserProvider = props => {
     if(isLoading) {
         return (
             <div className="uk-flex uk-flex-middle uk-flex-center uk-height-viewport">
-                <p className="uk-h1">Loading</p>
+                
             </div>
         )
     }

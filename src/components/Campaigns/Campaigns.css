@@ -48,8 +48,9 @@
 }
 
 .dzu-dropzone {
-  border-style: none !important;
-  min-height: 75% !important;
+  /* border-style: none !important; */
+  height: 75%;
+  min-height: 250px !important;
 }
 
 .dzu-previewContainer {
@@ -82,4 +83,9 @@
 
 .campaign-table small {
   font-size: 11px;
+}
+
+.uk-checkbox {
+  height: 24px;
+  width: 24px;
 }
