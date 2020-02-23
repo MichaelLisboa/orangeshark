@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import { Link } from "react-router-dom";
-// import DeleteCampaign from "../DeleteCampaign";
+import axios from "axios";
+import { CampaignUrls } from "../../../constants/Urls";
 
 import google from "../../../images/Icons/Google.png";
 import facebook from "../../../images/Icons/Facebook.png";
@@ -10,12 +11,58 @@ import carouselVideo from "../../../images/Icons/Carousel_video.png";
 import image from "../../../images/Icons/Image.png";
 import video from "../../../images/Icons/Video.png";
 import text from "../../../images/Icons/Text.png";
+import download from "../../../images/Icons/Download.png";
+
+const getAdFormat = val => {
+    let format = {}
+    switch(val) {
+        case 1:
+            format = {type: 'image', label: 'Single Image', image: image, color: "#8CB954"}
+            break
+        case 2:
+            format = {type: 'video', label: 'Single Video', image: video, color: "#56A5DA"}
+            break
+        case 3:
+            format = {type: 'carousel_image', label: 'Carousel Image', image: carouselImage, color: "#DA6136"}
+            break
+        case 4:
+            format = {type: 'carousel_video', label: 'Carousel Video', image: carouselVideo, color: "#7666A8"}
+            break
+        case 5:
+            format = {type: 'text', label: 'Text', image: text, color: "#F1B844"}
+            break
+        default:
+            format = {}
+    }
+    console.log("FORMAT", format)
+    return format;
+}
+
+async function downloadCampaign(token, id) {
+    const endpoint = `${CampaignUrls.DEFAULT}download/${id}/`;
+    const result = await axios.get(endpoint, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    const res = await result.data;
+    return res;
+}
 
 const CampaignDetailItem = props => {
     const {...campaign} = props.campaign;
     const [token, setToken] = useContext(UserContext);
-    console.log("DETAIL VIEW", campaign)
-    // const [campaignStatus, setCampaignStatus] = useState(campaign.status);
+
+    const getDownload = (token, id) => {
+        console.log(id)
+        downloadCampaign(token, id)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(err => {
+            console.log("GET DOWNLOAD ERROR", err)
+        })
+    }
 
     return (
         <div className="uk-container uk-container-small">
@@ -25,22 +72,40 @@ const CampaignDetailItem = props => {
                         <p className="small-meta uk-text-bold uk-margin-remove-bottom uk-text-uppercase">Your Campaign</p>
                         <p className="uk-h1 uk-margin-remove-vertical">{campaign.campaign_name}</p>
                     </div>
-                    <div className="uk-margin">
-                        {campaign.platform === "fb" ?
-                            <img
-                                src={facebook}
-                                alt="Network"
-                                />
-                            :
-                            <img
-                                src={google}
-                                alt="Network"
-                                />
-                        }
-                        <h4
-                            style={{color: campaign.platform === "fb" ? "#56A5DA" : "#DA6136"}}
-                            className="uk-margin-small">{campaign.platform === "fb" ? "Facebook": "Google"}
-                        </h4>
+                    <div className="uk-grid-small uk-flex uk-flex-row uk-flex-top uk-margin-medium" data-uk-grid>
+                        <div className="uk-width-auto uk-flex uk-flex-row">
+                            <div className="uk-text-center uk-margin-medium-right">
+                                {campaign.platform === "fb" ?
+                                    <img
+                                        src={facebook}
+                                        alt="Network"
+                                        />
+                                    :
+                                    <img
+                                        src={google}
+                                        alt="Network"
+                                        />
+                                }
+                            </div>
+                            <div className="uk-text-center">
+                                <img
+                                    src={getAdFormat(campaign.ad_format).image}
+                                    alt="gig"
+                                    />
+                            </div>
+                        </div>
+
+                        <div className="uk-width-expand uk-margin-right uk-text-right">
+                            <div style={{cursor: "pointer"}} className="uk-display-inline" onClick={(e) => {
+                                getDownload(token, campaign.id)
+                            }}>
+                                <img
+                                    src={download}
+                                    alt="Download campaign files"
+                                    />
+                            </div>
+                        </div>
+
                     </div>
                     <div className="uk-container uk-container-expand">
                         <p className="small-meta uk-text-bold uk-margin-remove-bottom uk-text-uppercase">Your Ad Sets</p>

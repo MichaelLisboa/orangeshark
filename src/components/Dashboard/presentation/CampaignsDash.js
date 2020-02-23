@@ -17,6 +17,7 @@ import active from "../../../images/Icons/Working.png";
 import closed from "../../../images/Icons/Finish.png";
 import danger from "../../../images/Icons/Danger.png";
 import canceled from "../../../images/Icons/Hate.png";
+import download from "../../../images/Icons/Download.png";
 
 const getAdFormat = val => {
     let format = {}
@@ -42,77 +43,15 @@ const getAdFormat = val => {
     return format;
 }
 
-const gigStatus = gig => {
-    let status = "";
-    switch (gig.status) {
-        case 'accepted':
-            status = {
-                icon: active,
-                color: "#4AB0D7"
-            }
-            break
-        case 'declined':
-            status = {
-                icon: declined,
-                color: "#EC5957"
-            }
-            break
-        case 'closed':
-            status = {
-                icon: closed,
-                color: "#8BC34A"
-            }
-            break
-        case 'canceled':
-            status = {
-                icon: canceled,
-                color: "#EC5957"
-            }
-            break
-        default:
-            status = {
-                icon: requested,
-                color: "#4AB0D7"
-            }
-    }
-
-    const s = () =>
-        <>
-        <td className="uk-table-expand uk-table-middle uk-text-truncate">
-            <p>
-                <Link className="uk-link-reset uk-link-text" to={`/campaign/${gig.id}`}>
-                    <span>{gig.campaign_name}</span>
-                </Link>
-            </p>
-        </td>
-        <td className="uk-preserve-width uk-text-right">
-            <div className="uk-grid-collapse uk-child-width-1-3" data-uk-grid>
-            <Link to={`/campaign/${gig.id}`}>
-                <img
-                    src={gig.platform === 1 ? facebook : google}
-                    alt="gig"
-                    width="24"
-                    />
-            </Link>
-            <Link to={`/campaign/${gig.id}`}>
-                <img
-                    src={getAdFormat(gig.ad_format).image}
-                    alt="gig"
-                    width="24"
-                    />
-            </Link>
-            <Link to={`/campaign/${gig.id}`}>
-                <img
-                    src={status.icon}
-                    alt="gig"
-                    width="24"
-                    />
-            </Link>
-            </div>
-        </td>
-        </>
-
-    return s()
+const getDownload = (token, id) => {
+    console.log(id)
+    downloadCampaign(token, id)
+    .then(response => {
+        console.log(response);
+    })
+    .catch(err => {
+        console.log("GET DOWNLOAD ERROR", err)
+    })
 }
 
 async function getCampaigns(token, page) {
@@ -126,10 +65,97 @@ async function getCampaigns(token, page) {
     return res;
 }
 
+async function downloadCampaign(token, id) {
+    const endpoint = `${CampaignUrls.DEFAULT}download/${id}/`;
+    const result = await axios.get(endpoint, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    const res = await result.data;
+    return res;
+}
+
 const CampaignsDash = props => {
     const [token, setToken] = useContext(UserContext);
     const [campaigns, setCampaigns] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+
+    const gigStatus = gig => {
+
+        let status = "";
+        switch (gig.status) {
+            case 'accepted':
+                status = {
+                    icon: active,
+                    color: "#4AB0D7"
+                }
+                break
+            case 'declined':
+                status = {
+                    icon: declined,
+                    color: "#EC5957"
+                }
+                break
+            case 'closed':
+                status = {
+                    icon: closed,
+                    color: "#8BC34A"
+                }
+                break
+            case 'canceled':
+                status = {
+                    icon: canceled,
+                    color: "#EC5957"
+                }
+                break
+            default:
+                status = {
+                    icon: requested,
+                    color: "#4AB0D7"
+                }
+        }
+
+        const s = () =>
+            <>
+            <td className="uk-table-expand uk-table-middle uk-text-truncate">
+                <p>
+                    <Link className="uk-link-reset uk-link-text" to={`/campaign/${gig.id}`}>
+                        <span>{gig.campaign_name}</span>
+                    </Link>
+                </p>
+            </td>
+            <td className="uk-preserve-width uk-text-right">
+                <div className="uk-grid-collapse uk-child-width-1-3" data-uk-grid>
+                <Link to={`/campaign/${gig.id}`}>
+                    <img
+                        src={gig.platform === 1 ? facebook : google}
+                        alt="gig"
+                        width="24"
+                        />
+                </Link>
+                <Link to={`/campaign/${gig.id}`}>
+                    <img
+                        src={getAdFormat(gig.ad_format).image}
+                        alt="gig"
+                        width="24"
+                        />
+                </Link>
+                <div style={{cursor: "pointer"}} onClick={(e) => {
+                    getDownload(token, gig.id)
+                }}>
+                    <img
+                        src={download}
+                        alt="download"
+                        width="24"
+                        />
+                </div>
+                </div>
+            </td>
+            </>
+
+        return s()
+    }
 
     useEffect(
         () => {
